@@ -1,18 +1,22 @@
 <template>
 	<div class="login">
 		<h1>注&nbsp;&nbsp;册</h1>
-<el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+  <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
 	
 	  <el-form-item label="用 户 名" prop="user" >
-		<el-input placeholder="用户名必须是6-12位数字字母下划线组成" type="text" v-model="ruleForm2.user" auto-complete="off"></el-input>
+		<el-input placeholder="请输入11位手机号" type="text" v-model="ruleForm2.user" auto-complete="off"></el-input>
 	  </el-form-item>
 	  
 	  <el-form-item label="密    码" prop="pass">
-		<el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="密码必须是6-12位"></el-input>
+		<el-input type="password" v-model="ruleForm2.pass" auto-complete="off" placeholder="请输入由数字或字母组成的6-12个字符"></el-input>
 	  </el-form-item>
 	  
 	  <el-form-item label="确认密码" prop="pass2">
 		<el-input type="password" v-model="ruleForm2.pass2" auto-complete="off"></el-input>
+	  </el-form-item>
+
+    <el-form-item label="邮箱" prop="email" >
+		<el-input placeholder="用于密码找回" type="text" v-model="ruleForm2.email" auto-complete="off"></el-input>
 	  </el-form-item>
 	  
 	  <el-form-item label="验 证 码" prop="captcha">
@@ -40,11 +44,11 @@
 	export default {
     data() {
       var validateuser = (rule, value, callback) => {
-		  console.log(value,/^\w{6,12}$/.test(value))
+		  console.log(value,/^\d{11}$/.test(value))
 		if (value === '') {
 			callback(new Error('请输入用户名'));
-        }else if(!/^\w{6,12}$/.test(value)) {
-			callback(new Error('用户名必须是6-12位数字字母下划线组成'));
+        }else if(!/^\d{11}$/.test(value)) {
+			callback(new Error('请输入11位手机号'));
 		}else{
 			callback()
 			}
@@ -70,6 +74,17 @@
           callback();
         }
 	   };
+
+	 var validateemail = (rule, value, callback) => {
+	   if (value === '') {
+	     callback(new Error('请输入邮箱'));
+     }else if (!/^[\w$%?-]+@(\w+)(\.\w+)*$/.test(value)){
+	     callback(new Error('请输入正确邮箱格式'));
+     }else{
+	     callback()
+     }
+   };
+
      var validatecaptcha = (rule, value, callback) => {
 		  console.log(value,/^[a-zA-Z0-9]{4}$/.test(value))
 		if (value === '') {
@@ -82,13 +97,14 @@
 
       };
       return {
-		captcha_url:"",
-		uuid:"",
+		    captcha_url:"",
+		    uuid:"",
         ruleForm2: {
           user: '',
           pass: '',
-		  pass2:'',
+		      pass2:'',
           captcha: '',
+          email:'',
 		  
         },
         rules2: {
@@ -98,12 +114,13 @@
           pass: [
             { validator: validatepass, trigger: 'blur' }
           ],
-		  pass2: [
+		      pass2: [
 		    { validator: validatepass2, trigger: 'blur' }
 		  ],
           captcha: [
             { validator: validatecaptcha, trigger: 'blur' }
-          ]
+          ],
+          email:[{validator: validateemail, trigger:'blur'}],
         }
       };
     },
@@ -119,7 +136,11 @@
         this.$refs[formName].validate((valid) => {
           if (valid) {
 			this.axios.post(this.host+"/register/",
-			{username:this.ruleForm2.user,password:this.ruleForm2.pass,captcha:this.ruleForm2.captcha,uuid:this.uuid},
+			{username:this.ruleForm2.user,
+        password:this.ruleForm2.pass,
+        captcha:this.ruleForm2.captcha,
+        email:this.ruleForm2.email,
+        uuid:this.uuid},
 			{responseType:'json',withCredentials: true,}
 			).then(response=>{
 				 // 使用浏览器本地存储保存token

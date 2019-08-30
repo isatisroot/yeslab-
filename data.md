@@ -24,6 +24,7 @@
 | password | 字符串 | 密码       |
 | captcha  | 字符串 | 验证码     |
 | uuid     | 字符串 | 验证码uuid |
+| email    | 字符串 | 邮箱       |
 
 返回数据：
 
