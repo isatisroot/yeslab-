@@ -42,29 +42,29 @@
 				token:sessionStorage.token || localStorage.token,
 
 				info:[
-					{"id":10,"date":"2019-9-10","userid":"10","tb_id":1,"time_bucket":"0:00-1:00"},
-					{"id":10,"date":"2019-9-10","userid":"12","tb_id":2,"time_bucket":"1:30-2:30"},
-					{"tb_id":3,"time_bucket":"3:00-4:00"},
-					{"tb_id":4,"time_bucket":"4:30-5:30"},
-					{"tb_id":5,"time_bucket":"6:00-7:00"},
-					{"tb_id":6,"time_bucket":"7:30-8:30"},
-					{"id":10,"date":"2019-9-10","userid":"10","tb_id":7,"time_bucket":"9:00-10:00"},
-					{"id":10,"date":"2019-9-10","userid":"14","tb_id":8,"time_bucket":"10:30-11:30"},
-					{"tb_id":9,"time_bucket":"12:00-13:00"},
-					{"tb_id":10,"time_bucket":"13:30-14:00"},
-					{"tb_id":11,"time_bucket":"14:30-15:00"},
-					{"id":10,"date":"2019-9-10","userid":"10","tb_id":12,"time_bucket":"15:30-16:30"},
-					{"tb_id":13,"time_bucket":"17:00-18:00"},
-					{"tb_id":14,"time_bucket":"18:30-19:30"},
-					{"tb_id":15,"time_bucket":"20:00-21:00"},
-					{"id":10,"date":"2019-9-10","userid":"16","tb_id":16,"time_bucket":"21:30-22:30"},
+					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":1,"time_bucket":"0:00-1:00"},
+					// {"id":10,"date":"2019-9-10","userid":"12","tb_id":2,"time_bucket":"1:30-2:30"},
+					// {"tb_id":3,"time_bucket":"3:00-4:00"},
+					// {"tb_id":4,"time_bucket":"4:30-5:30"},
+					// {"tb_id":5,"time_bucket":"6:00-7:00"},
+					// {"tb_id":6,"time_bucket":"7:30-8:30"},
+					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":7,"time_bucket":"9:00-10:00"},
+					// {"id":10,"date":"2019-9-10","userid":"14","tb_id":8,"time_bucket":"10:30-11:30"},
+					// {"tb_id":9,"time_bucket":"12:00-13:00"},
+					// {"tb_id":10,"time_bucket":"13:30-14:00"},
+					// {"tb_id":11,"time_bucket":"14:30-15:00"},
+					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":12,"time_bucket":"15:30-16:30"},
+					// {"tb_id":13,"time_bucket":"17:00-18:00"},
+					// {"tb_id":14,"time_bucket":"18:30-19:30"},
+					// {"tb_id":15,"time_bucket":"20:00-21:00"},
+					// {"id":10,"date":"2019-9-10","userid":"16","tb_id":16,"time_bucket":"21:30-22:30"},
 				],
 				date:new Date()
 			}
 		},
 		computed:{
-			date2:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+1)},
-			date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+2)},
+			date2:function(){return new Date(this.date.getFullYear(),this.date.getMonth()+1,this.date.getDate()+1)},
+			date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth()+1,this.date.getDate()+2)},
 			reserved:function(){var j=0;for(var i of this.info){if(i.id){j+=1}};return j;},
 			remanent:function(){return 16-this.reserved},
 		},
@@ -73,14 +73,16 @@
 		},
 		methods:{
 			get_info:function(date){
-				console.log(date)
+			  console.log(date.getMonth()+1)
+				// console.log(this.date2str(date));
+
 				this.axios.get(this.host+'/get_info/?date='+this.date2str(date),
 				{responseType:'json',
 				headers: {'Authorization': 'JWT ' + this.token},
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
-					console.log(response)
+					console.log(response.data)
 					this.info = response.data
 				}).catch(error=>{
 					console.log(error.response.data);
@@ -128,7 +130,8 @@
 			},
 			date2str:function(date){
 				// 日期转字符串
-				return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()
+        var month = date.getMonth()+1
+				return date.getFullYear()+"-"+month+"-"+date.getDate()
 			},
 
 

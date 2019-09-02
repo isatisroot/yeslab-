@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users.apps.UsersConfig',
+    'infos.apps.InfosConfig',
     # 允许跨域
     'corsheaders',
     'rest_framework',
