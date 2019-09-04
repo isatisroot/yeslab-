@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # 允许跨域
     'corsheaders',
     'rest_framework',
+    'django_crontab',  # 定时任务
 
 ]
 
@@ -174,3 +175,21 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
 }
+
+# 定时任务
+"""
+* * * * *
+分 时 日 月 周      命令
+M: 分钟（0-59）。每分钟用*或者 */1表示
+H：小时（0-23）。（0表示0点）
+D：天（1-31）。
+m: 月（1-12）。
+d: 一星期内的天（0~6，0为星期天）。
+"""
+CRONJOBS = [
+    # 每1分钟执行一次生成主页静态文件
+    ('*/1 * * * *', 'scripts.gen_reservation_table',r'>>C:\Users\49223\Desktop\yeslab-booking-systerm\backend\logs\generate.log')
+]
+
+# 解决crontab中文问题
+CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'

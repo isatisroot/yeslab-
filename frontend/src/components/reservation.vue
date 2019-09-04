@@ -11,7 +11,11 @@
 		<el-col :span="4"  class="date">
 			  <el-button plain v-on:click="get_info(date)">{{date|format("yyyy-MM-dd")}}</el-button>
 			  <el-button plain v-on:click="get_info(date2)">{{date2|format("yyyy-MM-dd")}}</el-button>
-			  <el-button plain v-on:click="get_info(date3)">{{date3|format("yyyy-MM-dd")}}</el-button> 
+			  <el-button plain v-on:click="get_info(date3)">{{date3|format("yyyy-MM-dd")}}</el-button>
+      <el-button plain v-on:click="get_info(date4)">{{date4|format("yyyy-MM-dd")}}</el-button>
+      <el-button plain v-on:click="get_info(date5)">{{date5|format("yyyy-MM-dd")}}</el-button>
+      <el-button plain v-on:click="get_info(date6)">{{date6|format("yyyy-MM-dd")}}</el-button>
+      <el-button plain v-on:click="get_info(date7)">{{date7|format("yyyy-MM-dd")}}</el-button>
 		</el-col>
 		
 		<el-col :span="20" class="con">
@@ -41,31 +45,18 @@
 				username:sessionStorage.username || localStorage.username,
 				token:sessionStorage.token || localStorage.token,
 
-				info:[
-					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":1,"time_bucket":"0:00-1:00"},
-					// {"id":10,"date":"2019-9-10","userid":"12","tb_id":2,"time_bucket":"1:30-2:30"},
-					// {"tb_id":3,"time_bucket":"3:00-4:00"},
-					// {"tb_id":4,"time_bucket":"4:30-5:30"},
-					// {"tb_id":5,"time_bucket":"6:00-7:00"},
-					// {"tb_id":6,"time_bucket":"7:30-8:30"},
-					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":7,"time_bucket":"9:00-10:00"},
-					// {"id":10,"date":"2019-9-10","userid":"14","tb_id":8,"time_bucket":"10:30-11:30"},
-					// {"tb_id":9,"time_bucket":"12:00-13:00"},
-					// {"tb_id":10,"time_bucket":"13:30-14:00"},
-					// {"tb_id":11,"time_bucket":"14:30-15:00"},
-					// {"id":10,"date":"2019-9-10","userid":"10","tb_id":12,"time_bucket":"15:30-16:30"},
-					// {"tb_id":13,"time_bucket":"17:00-18:00"},
-					// {"tb_id":14,"time_bucket":"18:30-19:30"},
-					// {"tb_id":15,"time_bucket":"20:00-21:00"},
-					// {"id":10,"date":"2019-9-10","userid":"16","tb_id":16,"time_bucket":"21:30-22:30"},
-				],
+				info:[],
 				date:new Date()
 			}
 		},
 		computed:{
-			date2:function(){return new Date(this.date.getFullYear(),this.date.getMonth()+1,this.date.getDate()+1)},
-			date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth()+1,this.date.getDate()+2)},
-			reserved:function(){var j=0;for(var i of this.info){if(i.id){j+=1}};return j;},
+			date2:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+1)},
+			date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+2)},
+      date4:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+3)},
+      date5:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+4)},
+      date6:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+5)},
+      date7:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+6)},
+			reserved:function(){var j=0;for(var i of this.info){if(i.userid){j+=1}};return j;},
 			remanent:function(){return 16-this.reserved},
 		},
 		mounted(){

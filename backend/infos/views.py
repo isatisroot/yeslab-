@@ -1,17 +1,19 @@
 import datetime
+import time
 from django.shortcuts import render
 from django.views import View
 from django.http.response import HttpResponse,JsonResponse
 from .models import ReservationInfo
+from utils.constant import TIME_BUKET
 # Create your views here.
 
 class Reservation(View):
     def get(self,request):
         dataList = []
-        date = request.GET.get('date')
-        print(date)
+        req_date = request.GET.get('date')
+
         try:
-            query = ReservationInfo.objects.filter(date=date)
+            query = ReservationInfo.objects.filter(date=req_date)
         except Exception as e:
             print(e)
         else:
@@ -20,9 +22,9 @@ class Reservation(View):
                 print(datetime.datetime.strftime(q.date,'%Y-%m-%d'))
                 data = {
                     # 'date':datetime.datetime.strftime(q.date,'%Y-%m-%d'),
-                    'user_id':q.user_id,
+                    'userid':q.user_id,
                     'tb_id':q.tb_id,
-                    'time_bucket':'0:00-1:00'
+                    'time_bucket':TIME_BUKET[q.tb_id]
                 }
                 dataList.append(data)
         print(dataList)
