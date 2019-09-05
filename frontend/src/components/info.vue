@@ -20,9 +20,14 @@
 				<el-divider></el-divider>
 				<li>
 					<i class="el-icon-phone"></i>
-					<router-link :to="'/info/reservation'">资源预约</router-link>
+					<router-link :to="'/info/reservation'">预约实验</router-link>
 				</li>
 				<el-divider></el-divider>
+        <li><i class="el-icon-phone"></i>
+					<router-link :to="'/info/interview'">预约面试</router-link>
+        </li>
+        <el-divider></el-divider>
+
 				<li>
 					<i class="el-icon-phone"></i>
 					<router-link :to="'/info/myreservation'">我的预约</router-link>

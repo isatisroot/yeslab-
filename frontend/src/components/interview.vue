@@ -6,7 +6,7 @@
 			<span>剩余约时间段<b>{{remanent}}</b></span>
 		</el-col>
 	</el-row>
-	
+
 	<el-row>
 		<el-col :span="4"  class="date">
 			  <el-button plain v-on:click="get_info(date)">{{date|format("yyyy-MM-dd")}}</el-button>
@@ -17,7 +17,7 @@
       <el-button plain v-on:click="get_info(date6)">{{date6|format("yyyy-MM-dd")}}</el-button>
       <el-button plain v-on:click="get_info(date7)">{{date7|format("yyyy-MM-dd")}}</el-button>
 		</el-col>
-		
+
 		<el-col :span="20" class="con">
 			<el-row class="con_title">{{info[0].date}}</el-row>
 			<el-divider></el-divider>
@@ -32,7 +32,7 @@
 
 			</el-row>
 		</el-col>
-		
+
 	</el-row>
 	</div>
 </template>
@@ -46,6 +46,7 @@
 				token:sessionStorage.token || localStorage.token,
 
 				info:[],
+
 				date:new Date()
 			}
 		},
@@ -67,7 +68,7 @@
 			  console.log(date.getMonth()+1)
 				// console.log(this.date2str(date));
 
-				this.axios.get(this.host+'/get_info/?date='+this.date2str(date),
+				this.axios.get(this.host+'/interview_msg/?date='+this.date2str(date),
 				{responseType:'json',
 				headers: {'Authorization': 'JWT ' + this.token},
 				withCredentials: true,    //跨域带上cookies
@@ -87,7 +88,7 @@
 				  cancelButtonText: '取消',
 				  type: 'warning'
 				}).then(() => {
-					this.axios.post(this.host+'/sub_rv/',
+					this.axios.post(this.host+'/interview/',
 					{date:date,tb_id:tb_id,userid:this.userid},
 					{responseType:'json',
 					headers: {'Authorization': 'JWT ' + this.token},
@@ -110,17 +111,17 @@
 							message: '预约失败!'
 						});
 					})
-					
-				  
-				  
+
+
+
 				}).catch(() => {
 				  this.$message({
 					type: 'info',
 					message: '已取消预约'
 				  });
-				
+
 				});
-				
+
 
 			},
 			date2str:function(date){
@@ -142,20 +143,20 @@
 		filters:{
 			format2:function(date,fmt){
 				console.log(date,fmt)
-				var o = {   
-					"M+" : date.getMonth()+1,                 //月份   
-					"d+" : date.getDate(),                    //日   
-					"h+" : date.getHours(),                   //小时   
-					"m+" : date.getMinutes(),                 //分   
-					"s+" : date.getSeconds(),                 //秒   
-					"q+" : Math.floor((date.getMonth()+3)/3), //季度   
-					"S"  : date.getMilliseconds()             //毫秒   
-				  };   
-				if(/(y+)/.test(fmt))   
-					fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));   
-				for(var k in o)   
-					if(new RegExp("("+ k +")").test(fmt))   
-				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+				var o = {
+					"M+" : date.getMonth()+1,                 //月份
+					"d+" : date.getDate(),                    //日
+					"h+" : date.getHours(),                   //小时
+					"m+" : date.getMinutes(),                 //分
+					"s+" : date.getSeconds(),                 //秒
+					"q+" : Math.floor((date.getMonth()+3)/3), //季度
+					"S"  : date.getMilliseconds()             //毫秒
+				  };
+				if(/(y+)/.test(fmt))
+					fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+				for(var k in o)
+					if(new RegExp("("+ k +")").test(fmt))
+				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
 				return fmt;
 			}
 		}
@@ -184,7 +185,7 @@
 		height:50px;
 		margin:10px auto;
 		display: block;
-		
+
 	}
 	.con{
 		background-color: #fff;
@@ -205,6 +206,6 @@
 	.con_con .el-col .el-button{
 		width:150px;
 
-		
+
 	}
 </style>

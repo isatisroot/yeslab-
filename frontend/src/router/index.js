@@ -7,7 +7,8 @@ import info from '../components/info.vue'
 
 import userinfo from '../components/userinfo.vue' 
 import reservation from '../components/reservation.vue' 
-import myreservation from '../components/myreservation.vue' 
+import myreservation from '../components/myreservation.vue'
+import interview from '../components/interview.vue'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,8 @@ export default new VueRouter({
 			children:[
 				{ path: 'userinfo', component: userinfo },
 				{ path: 'reservation', component: reservation },
-				{ path: 'myreservation', component: myreservation }
+				{ path: 'myreservation', component: myreservation },
+        { path:'interview',componet:interview}
           ]
 		},
 	]

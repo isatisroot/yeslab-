@@ -67,3 +67,16 @@ class Regiter(View):
         token = jwt_encode_handler(payload)
 
         return JsonResponse({'username':username,'user_id':user_id,'token':token,'msg':'successful'})
+
+class User():
+    username = 'yeslab'
+    pk = 4
+
+class Login(View):
+    def post(self,request):
+        user = User()
+        jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+        jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return JsonResponse({'username':'yeslab','user_id':4,'token':token,'msg':'successful'})

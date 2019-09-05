@@ -1,8 +1,32 @@
 <template>
 	<div class="reservation">
+    <el-row>
+		<el-col :span="24" class="title">
+			<span>面试已预约时间段：<b>{{num}}</b></span>
+		</el-col>
+	</el-row>
+	<el-row class="myrev">
+		<el-collapse v-model="activeNames" >
+
+		  <el-collapse-item :title="it.date" :name="index" v-for="(it,index) in interview">
+			<el-row class="con_con">
+
+				<el-col :span=6 v-for="tb in it.tbs">
+					<el-badge value="已预约" class="item" >
+						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)">
+						{{tb.time_bucket}}
+						</el-button>
+					</el-badge>
+				</el-col>
+			</el-row>
+		  </el-collapse-item>
+
+		</el-collapse>
+	</el-row>
+    <br>
 	<el-row>
 		<el-col :span="24" class="title">
-			<span>已预约时间段<b>{{num}}</b></span>
+			<span>实验已预约时间段：<b>{{num}}</b></span>
 		</el-col>
 	</el-row>
 	<el-row class="myrev">
@@ -35,11 +59,8 @@
 				username:sessionStorage.username || localStorage.username,
 				token:sessionStorage.token || localStorage.token,
 				activeNames:"",  //展开信息序号
-				info:[
-					{"id":10,"date":"2019-9-10","uesrid":10,"tbs":[{"tb_id":1,time_bucket:"8:00-9:00"},{"tb_id":3,time_bucket:"11:00-12:00"}]},
-					{"id":13,"date":"2019-9-11","uesrid":10,"tbs":[{"tb_id":1,time_bucket:"8:00-9:00"},{"tb_id":3,time_bucket:"11:00-12:00"}]},
-					{"id":16,"date":"2019-9-12","uesrid":10,"tbs":[{"tb_id":1,time_bucket:"8:00-9:00"},{"tb_id":3,time_bucket:"11:00-12:00"}]},
-				],
+				info:[],
+        interview:[],
 
 			}
 		},
@@ -59,14 +80,14 @@
 		},
 		methods:{
 			get_info:function(date){
-				console.log(date)
 				// 获取 预约信息
-				this.axios.get(this.host+'/get_reservation/',
+				this.axios.get(this.host+'/get_reservation/'+ this.userid,
 				{responseType:'json',
 				headers: {'Authorization': 'JWT ' + this.token},
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
+				  console.log(response.data[1].tbs);
 					this.info = response.data
 				}).catch(error=>{
 					console.log(error.response.data);
@@ -81,49 +102,44 @@
 				  type: 'warning'
 				}).then(() => {
 					this.axios.post(this.host+'/cancel_rv/',
-					{date:date,tb_id:tb_id},
+					{date:date,tb_id:tb_id,userid:this.userid},
 					{responseType:'json',
 					headers: {'Authorization': 'JWT ' + this.token},
 					withCredentials: true    //跨域带上cookies
 					},
 					).then(response=>{
-						this.info=response.data
-						this.open1()
+						this.info=response.data;
+						// this.open1();
 						this.$message({
 							type: 'success',
-							message: '已提交预约!'
+							message: '取消预约成功!'
 						});
 					}).catch(error=>{
 						this.$message({
 							type: 'error',
-							message: '预约失败!'
+							message: '取消预约失败!'
 						});
 					})
-					
-				  
-				  
 				}).catch(() => {
 				  this.$message({
 					type: 'info',
-					message: '已取消预约'
+					message: '无法取消预约'
 				  });
-				
 				});
-				
 
 			},
 			date2str:function(date){
 				// 日期转字符串
 				return date.getFullYear()+"-"+date.getMonth()+"-"+date.getDate()
 			},
-			open1() {
-				const h = this.$createElement;
-
-				this.$notify({
-				  title: '标题名称',
-				  message: h('i', { style: 'color: teal'}, '预约成功！')
-				});
-      },
+			// open1() {
+			// 	const h = this.$createElement;
+      //
+			// 	this.$notify({
+			// 	  title: '标题名称',
+			// 	  message: h('i', { style: 'color: teal'}, '操作成功！')
+			// 	});
+      // },
 		},
 		filters:{
 			format2:function(date,fmt){
@@ -150,17 +166,17 @@
 
 <style>
 	.title{
-		color:#999;
-		text-align: right;
+		color:greenyellow;
+		text-align: left;
 		height: 50px;
 		line-height: 50px;
 		border: 1px solid #DCDFE6;
-		background-color: #fff;
+		background-color: #bea4fb;
 		border-radius: 6px;
 		margin-bottom: 10px;
 	}
 	.title span{
-		margin-right: 20px;
+		margin-left: 20px;
 	}
 	.reservation{
 		background-color: #eee;

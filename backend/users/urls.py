@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     url(r'captcha/(?P<uuid>.*)/$',views.Regiter.as_view()),
     url(r'register/$', views.Regiter.as_view()),
+    url(r'login/$',views.Login.as_view()),
 
 # url(r'^api-token-auth/', obtain_jwt_token),
 #     url(r'^api-token-refresh/', refresh_jwt_token),

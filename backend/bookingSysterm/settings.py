@@ -148,9 +148,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -187,8 +187,8 @@ m: 月（1-12）。
 d: 一星期内的天（0~6，0为星期天）。
 """
 CRONJOBS = [
-    # 每1分钟执行一次生成主页静态文件
-    ('*/1 * * * *', 'scripts.gen_reservation_table',r'>>C:\Users\49223\Desktop\yeslab-booking-systerm\backend\logs\generate.log')
+    # 每个礼拜执行一次
+    ('* * * * 0', 'scripts.gen_reservation_table.main','>>/home/python/Desktop/yeslab-booking-systerm/backend/logs/generate.log')
 ]
 
 # 解决crontab中文问题
