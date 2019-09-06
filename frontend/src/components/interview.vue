@@ -23,8 +23,8 @@
 			<el-divider></el-divider>
 			<el-row class="con_con">
 				<el-col :span=6 v-for="it in info">
-					<el-badge :value="it.userid&&it.userid==userid?'预约':''" class="item">
-						<el-button type="success" v-on:click="sub_rv(it.date,it.tb_id)" :disabled="it.userid?true:false">
+					<el-badge :value="it.remaining?'剩余：'+it.remaining:''" class="item">
+						<el-button type="success" v-on:click="sub_rv(it.date,it.tb_id)" :disabled="it.remaining==0?true:false">
 						{{it.time_bucket}}
 						</el-button>
 					</el-badge>
@@ -74,7 +74,7 @@
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
-					console.log(response.data);
+					console.log(this.userid);
 					this.info = response.data
 				}).catch(error=>{
 					console.log(error.response.data);
@@ -88,6 +88,7 @@
 				  cancelButtonText: '取消',
 				  type: 'warning'
 				}).then(() => {
+
 					this.axios.post(this.host+'/interview/',
 					{date:date,tb_id:tb_id,userid:this.userid},
 					{responseType:'json',
@@ -97,7 +98,7 @@
 					).then(response=>{
 					  console.log(response.data);
 						this.info=response.data;
-            // this.$router.go(0);
+            this.$router.go(0);
 						// this.open1();
 						this.$message({
 							type: 'success',

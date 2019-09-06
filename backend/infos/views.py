@@ -4,17 +4,27 @@ from django.shortcuts import render
 from django.views import View
 from django.http.response import HttpResponse,JsonResponse,HttpResponseBadRequest
 from .models import ReservationInfo,InterviewInfo
-from utils.constant import TIME_BUKET
-from utils.common import time_to_lab,make_format_resp
+from users.models import UserInfo
+from utils.constant import TIME_BUKET,INTERVIEW_TIME_BUKET
+from utils.common import time_to_lab
 from django.db.models import Count
 # Create your views here.
 
 class Reservation(View):
+    def make_response(self,query):
+        dataList = []
+        for q in query:
+            data = {
+                'date': datetime.datetime.strftime(q.date, '%Y-%m-%d'),
 
+                'userid': q.user_id,
+                'tb_id': q.tb_id,
+                'time_bucket': TIME_BUKET[q.tb_id]
+            }
+            dataList.append(data)
 
-
+        return dataList
     def get(self,request):
-
         req_date = request.GET.get('date')
 
         try:
@@ -22,7 +32,7 @@ class Reservation(View):
         except Exception as e:
             print(e)
         else:
-            dataList = make_format_resp(query)
+            dataList = self.make_response(query)
 
         # print(dataList)
             return JsonResponse(dataList, safe=False)
@@ -36,7 +46,7 @@ class Reservation(View):
         print(date,tb_id,user_id)
         q = ReservationInfo.objects.filter(date=date,tb_id=tb_id)[0]
         if q.user_id:
-            return HttpResponseBadRequest({'已预约'})
+            return HttpResponseBadRequest(content='已经预约')
 
         q.user_id = user_id
         q.save()
@@ -51,17 +61,67 @@ class InterviewView(View):
         req_date = request.GET.get('date')
 
         query = InterviewInfo.objects.filter(date=req_date)
+        print(query)
+        dataList =[]
 
-        dataList = make_format_resp(query)
+        for q in query:
+            data = {
+                'date': datetime.datetime.strftime(q.date, '%Y-%m-%d'),
+                'remaining':q.num-q.user.count(),
+                'tb_id': q.tb_id,
 
+                'time_bucket': INTERVIEW_TIME_BUKET[q.tb_id]
+            }
+            dataList.append(data)
 
+        print(dataList)
         return JsonResponse(dataList, safe=False)
+
+    def post(self,request):
+        json_str = request.body.decode()
+        req_data = json.loads(json_str)
+        print(req_data)
+        date = req_data.get('date')
+        tb_id = req_data.get('tb_id')
+        user_id = req_data.get('userid')
+
+        i = InterviewInfo.objects.filter(date=date,tb_id=tb_id)[0]
+        count = i.user.count()
+        num = i.num
+        if count >= num:
+            return HttpResponseBadRequest(content='人数已达上限'.encode())
+
+        u = UserInfo.objects.get(id=user_id)
+        i.user.add(u)
+        print('write ')
+
+        return JsonResponse({'date':date,'time_bucket': INTERVIEW_TIME_BUKET[i.tb_id],'tb_id':tb_id,'remaining':int(num-count-1)})
 
 class MyRerservation(View):
     def get(self,request,user_id):
         dataList = []
 
+        # 查询实验预约表
         query = ReservationInfo.objects.filter(user_id=user_id)
+
+        u = UserInfo.objects.get(id=user_id)
+        # 通过用户表查询关联的interviewinfo（面试预约表），返回查询集
+        intv_query = u.interviewinfo_set.filter()
+        # 通过用户表查询关联的中间表，返回中间表的数据
+        inter_user_obj = u.interviewinfo_set.through.objects.filter(userinfo_id=u.id)
+        intvList = []
+        for q in intv_query:
+            # 查询该时段共有多少个人预约
+            i = InterviewInfo.objects.filter(date=q.date, tb_id=q.tb_id)[0]
+            data = {
+                'date':datetime.datetime.strftime(q.date, '%Y-%m-%d'),
+                'tb_id':q.tb_id,
+                'time_bucket': INTERVIEW_TIME_BUKET[q.tb_id],
+                'count':i.user.count()
+            }
+            intvList.append(data)
+        print(intvList)
+
 
         # 将查询结果按日期分组统计，这一步需要将日期格式挂成天数在分组，因此需要extra
         # <QuerySet [('2019-09-04', 2), ('2019-09-06', 1), ('2019-09-07', 2), ('2019-09-08', 2), ('2019-09-09', 2)]>
@@ -94,8 +154,8 @@ class MyRerservation(View):
 
             }
             dataList.append(data)
-        print(dataList)
-        return JsonResponse(dataList,safe=False)
+        # print(dataList)
+        return JsonResponse([dataList,intvList],safe=False)
 
     def post(self,request):
         json_str = request.body.decode()

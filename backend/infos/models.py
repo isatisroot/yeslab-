@@ -16,7 +16,7 @@ class InterviewInfo(models.Model):
     date = models.DateField(verbose_name='预约日期')
     tb_id = models.SmallIntegerField(verbose_name='预约时段')
     num = models.SmallIntegerField(default=10)
-    user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True)
+    user = models.ManyToManyField(UserInfo)
 
     class Meta:
         db_table = 'interview'

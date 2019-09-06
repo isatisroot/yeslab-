@@ -33,7 +33,7 @@ export default new VueRouter({
 				{ path: 'userinfo', component: userinfo },
 				{ path: 'reservation', component: reservation },
 				{ path: 'myreservation', component: myreservation },
-        { path:'interview',componet:interview}
+        { path:'interview',component:interview}
           ]
 		},
 	]

@@ -18,8 +18,8 @@ TIME_BUKET = {
 }
 
 INTERVIEW_TIME_BUKET = {
-    1:'',
-    2:''
+    1:'上午',
+    2:'下午'
 }
 
 TIME_TO_LAB = {

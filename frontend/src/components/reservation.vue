@@ -103,7 +103,7 @@
 							message: '已提交预约!'
 						});
 					}).catch(error=>{
-					  alert('fail');
+					  // alert('fail');
 					  console.log(error);
 						this.$message({
 							type: 'error',

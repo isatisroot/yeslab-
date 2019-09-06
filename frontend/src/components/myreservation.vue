@@ -2,31 +2,45 @@
 	<div class="reservation">
     <el-row>
 		<el-col :span="24" class="title">
-			<span>面试已预约时间段：<b>{{num}}</b></span>
+			<span>面试已预约时间段：<b>{{num2}}</b></span>
 		</el-col>
 	</el-row>
-	<el-row class="myrev">
-		<el-collapse v-model="activeNames" >
-
-		  <el-collapse-item :title="it.date" :name="index" v-for="(it,index) in interview">
-			<el-row class="con_con">
-
-				<el-col :span=6 v-for="tb in it.tbs">
-					<el-badge value="已预约" class="item" >
-						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)">
-						{{tb.time_bucket}}
-						</el-button>
-					</el-badge>
-				</el-col>
-			</el-row>
-		  </el-collapse-item>
-
-		</el-collapse>
-	</el-row>
+	<el-table
+    :data="interview"
+    style="width: 100%"
+    :row-class-name="tableRowClassName">
+    <el-table-column
+      prop="date"
+      label="日期"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="time_bucket"
+      label="时段"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="count"
+      label="面试人数">
+    </el-table-column>
+    <el-table-column
+      fixed="right"
+      label="取消预约"
+      width="120">
+      <template slot-scope="scope">
+        <el-button
+          @click.native.prevent="deleteRow(scope.$index, tableData)"
+          type="text"
+          size="small">
+          取消
+        </el-button>
+      </template>
+    </el-table-column>
+  </el-table>
     <br>
 	<el-row>
 		<el-col :span="24" class="title">
-			<span>实验已预约时间段：<b>{{num}}</b></span>
+			<span>实验已预约时间段：<b>{{num1}}</b></span>
 		</el-col>
 	</el-row>
 	<el-row class="myrev">
@@ -66,13 +80,21 @@
 		},
 		computed:{
 			//已预约时间段数量
-			num:function(){
+			num1:function(){
 				var j=0
 				for (let i of this.info){
 					j+=i.tbs.length
 				}
 				return j
-			}
+			},
+      num2:function(){
+				var j=this.interview.length;
+				// for (let i of this.interview){
+				// 	j+=i.tbs.length
+				// }
+
+				return j
+			},
 
 		},
 		mounted(){
@@ -87,8 +109,9 @@
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
-				  console.log(response.data[1].tbs);
-					this.info = response.data
+				  // console.log(response.data[1].tbs);
+					this.info = response.data[0];
+          this.interview = response.data[1]
 				}).catch(error=>{
 					console.log(error.response.data);
 				})
@@ -205,7 +228,13 @@
 	.con_con .el-col .el-button{
 		width:150px;
 	}
-	
+	.el-table .warning-row {
+    background: oldlace;
+  }
+
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
 	
 
 </style>
