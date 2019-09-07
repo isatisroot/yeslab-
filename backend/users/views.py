@@ -12,12 +12,12 @@ from utils.captcha.captcha import Captcha
 # Create your views here.
 
 class Regiter(View):
-    def get(self,request,uuid):
+    def get(self, request, uuid):
         captcha = Captcha()
-        text,image = captcha.generate_captcha()
+        text, image = captcha.generate_captcha()
         # 连接redis数据库，写入验证码,UUID
         redis = get_redis_connection('verify')
-        redis.setex('uuid:%s'% uuid,300,text)
+        redis.setex('uuid:%s' % uuid, 300, text)
         return HttpResponse(image,content_type="image/jpg")
 
     def post(self,request):
@@ -33,24 +33,24 @@ class Regiter(View):
         text = redis.get('uuid:%s' % uuid)
         if not text:
             print('不存在')
-            return HttpResponseBadRequest({'msg':'验证码已过期'})
+            return HttpResponseBadRequest({'msg': '验证码已过期'})
         text = text.decode()
         if text.upper() != captcha.upper():
-            print(text,captcha)
-            return HttpResponseBadRequest({'msg':'验证码不匹配'})
+            print(text, captcha)
+            return HttpResponseBadRequest({'msg': '验证码不匹配'})
         print('ok')
 
         user_exist = UserInfo.objects.filter(username=username).exists()
         if user_exist:
             print('用户名已存在')
-            return HttpResponseBadRequest({'msg':'用户名已存在'})
+            return HttpResponseBadRequest({'msg': '用户名已存在'})
 
         print(username)
         print(password)
         print(email)
         if not all([username,password,email]):
             print('信息不完整')
-            return HttpResponseBadRequest({'msg':'信息不完整'})
+            return HttpResponseBadRequest({'msg': '信息不完整'})
 
         user = UserInfo(
             username=username,
@@ -59,7 +59,7 @@ class Regiter(View):
         )
         user.save()
         user_id = user.id
-        print(user_id,'user_id')
+        print(user_id, 'user_id')
 
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
@@ -68,15 +68,54 @@ class Regiter(View):
 
         return JsonResponse({'username':username,'user_id':user_id,'token':token,'msg':'successful'})
 
-class User():
-    username = 'yeslab'
-    pk = 4
+
 
 class Login(View):
-    def post(self,request):
-        user = User()
+    def get(self, request, uuid):
+        captcha = Captcha()
+        text, image = captcha.generate_captcha()
+        # 连接redis数据库，写入验证码,UUID
+        redis = get_redis_connection('verify')
+        redis.setex('uuid:%s' % uuid, 300, text)
+        print("已写入redis")
+        return HttpResponse(image, content_type="image/jpg")
+
+    def post(self, request):
+        json_str = request.body.decode()
+        data = json.loads(json_str)
+        username = data.get('username')
+        password = data.get('password')
+        captcha = data.get('captcha')
+        uuid = data.get('uuid')
+        user = UserInfo.objects.get(username=username)
+
+        if user:
+            if user.password == password:
+                print("密码正确")
+            else:
+                print("密码 不正确")
+                return HttpResponseBadRequest({'msg': '密码错误'})
+        else:
+            print("用户不存在")
+            return HttpResponseBadRequest({'msg': '用户不存在'})
+        redis = get_redis_connection('verify')
+        text = redis.get('uuid:%s' % uuid)
+        if not text:
+            print('不存在')
+            return HttpResponseBadRequest({'msg': '验证码已过期'})
+        text = text.decode()
+        if text.upper() != captcha.upper():
+            print(text, captcha)
+            return HttpResponseBadRequest({'msg': '验证码不匹配'})
+
+        print('ok')
+
+        user_id = user.id
+
         jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
         jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
         payload = jwt_payload_handler(user)
         token = jwt_encode_handler(payload)
-        return JsonResponse({'username':'yeslab','user_id':4,'token':token,'msg':'successful'})
+
+        return JsonResponse({'username': username, 'user_id': user_id, 'token': token, 'msg': 'successful'})
+

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="4d22ce02-c050-4420-8a38-3146cf618a96" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/infos/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/infos/models.py" afterDir="false" />
@@ -13,6 +14,9 @@
       <change beforePath="$PROJECT_DIR$/frontend/src/components/reservation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/reservation.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" afterDir="false" />
     </list>
+=======
+    <list default="true" id="4d22ce02-c050-4420-8a38-3146cf618a96" name="Default Changelist" comment="" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,13 +26,18 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/backend/infos/views.py">
+        <entry file="file://$PROJECT_DIR$/backend/users/urls.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="779">
               <caret line="118" column="61" selection-start-line="118" selection-start-column="61" selection-end-line="118" selection-end-column="61" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
+=======
+            <state relative-caret-position="19">
+              <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
             </state>
           </provider>
         </entry>
@@ -36,11 +45,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/infos/migrations/0001_initial.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="-339" />
+=======
+            <state relative-caret-position="-798">
+              <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+              <folding>
+                <element signature="e#315#324#0" expanded="true" />
+              </folding>
+            </state>
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
         <entry file="file://$PROJECT_DIR$/backend/infos/migrations/0003_auto_20190905_1752.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-483" />
@@ -66,11 +85,20 @@
               <caret line="18" selection-start-line="18" selection-end-line="18" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+=======
+        <entry file="file://$PROJECT_DIR$/backend/users/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1305">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/infos/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -88,6 +116,21 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="456">
               <caret line="19" column="20" selection-start-line="19" selection-end-line="19" selection-end-column="20" />
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-360">
+              <caret line="104" column="14" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
+              <folding>
+                <element signature="e#1290#2621#0" />
+                <element signature="e#1633#1857#0" />
+                <element signature="e#1914#2155#0" />
+                <element signature="e#2209#2308#0" />
+                <element signature="e#2326#2606#0" />
+                <element signature="e#2633#2663#0" />
+              </folding>
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
             </state>
           </provider>
         </entry>
@@ -146,10 +189,17 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+<<<<<<< HEAD
     <option name="x" value="992" />
     <option name="y" value="24" />
     <option name="width" value="928" />
     <option name="height" value="1056" />
+=======
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="960" />
+    <option name="height" value="707" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -159,7 +209,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,7 +225,17 @@
               <item name="yeslab-booking-systerm" type="b2602c69:ProjectViewProjectNode" />
               <item name="yeslab-booking-systerm" type="462c0819:PsiDirectoryNode" />
               <item name="backend" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="infos" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="bookingSysterm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="yeslab-booking-systerm" type="b2602c69:ProjectViewProjectNode" />
+              <item name="yeslab-booking-systerm" type="462c0819:PsiDirectoryNode" />
+              <item name="backend" type="462c0819:PsiDirectoryNode" />
+              <item name="users" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
             </path>
             <path>
               <item name="yeslab-booking-systerm" type="b2602c69:ProjectViewProjectNode" />
@@ -196,17 +255,11 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="yeslab-booking-systerm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="yeslab-booking-systerm" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="router" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -335,16 +388,21 @@
       <workItem from="1567397587708" duration="20000" />
       <workItem from="1567397714498" duration="11932000" />
       <workItem from="1567483696758" duration="6606000" />
+<<<<<<< HEAD
       <workItem from="1567580260602" duration="9101000" />
       <workItem from="1567590110444" duration="6986000" />
       <workItem from="1567653882046" duration="7145000" />
       <workItem from="1567667293249" duration="14824000" />
       <workItem from="1567752553236" duration="7872000" />
       <workItem from="1567765659711" duration="5401000" />
+=======
+      <workItem from="1567681379824" duration="321000" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="96582000" />
   </component>
   <component name="ToolWindowManager">
@@ -352,6 +410,15 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1925014" />
+=======
+    <option name="totallyTimeSpent" value="45574000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17828418" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -365,8 +432,13 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+<<<<<<< HEAD
       <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.44926006" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32980973" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.3696884" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24945295" />
@@ -401,6 +473,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/views/generic/__init__.py" />
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/fields/__init__.py" />
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/backends/mysql/base.py" />
@@ -420,6 +493,11 @@
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/fields/related.py" />
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/deletion.py" />
     <entry file="file://$PROJECT_DIR$/backend/infos/apps.py">
+=======
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/contrib/admin/__init__.py" />
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/views/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/frontend/src/utils/util.js">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="111">
           <caret line="3" column="17" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="17" />
@@ -433,6 +511,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/http/response.py" />
     <entry file="file://$PROJECT_DIR$/backend/bookingSysterm/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -454,12 +533,23 @@
     <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/-2068372222/time.py" />
     <entry file="file://C:/Python35/Lib/site-packages/django_crontab/crontab.py" />
     <entry file="file://$PROJECT_DIR$/backend/manage.py">
+=======
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/views/generic/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/myreservation.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/fields/__init__.py" />
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/backends/mysql/base.py" />
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/backends/mysql/operations.py" />
+    <entry file="file://$PROJECT_DIR$/backend/bookingSysterm/__init__.py">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="7" column="76" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="76" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3/datetime.pyi">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -477,12 +567,21 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/meiduo_django/lib/python3.5/site-packages/django/db/backends/mysql/operations.py">
+=======
+    <entry file="file://$PROJECT_DIR$/backend/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/http/__init__.py" />
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/-2068372222/builtins.py" />
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/userinfo.vue">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="145" column="28" selection-start-line="145" selection-start-column="28" selection-end-line="145" selection-end-column="28" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file:///usr/lib/python2.7/importlib/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -501,6 +600,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/scripts/gen_reservation_table.py">
+=======
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/fields/related.py" />
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/db/models/deletion.py" />
+    <entry file="file://$PROJECT_DIR$/backend/infos/apps.py">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
@@ -549,6 +653,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/backend/bookingSysterm/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1264">
@@ -573,12 +678,17 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/info.vue">
+=======
+    <entry file="file://C:/Python35/Lib/site-packages/Django-2.2.3-py3.5.egg/django/http/response.py" />
+    <entry file="file://$PROJECT_DIR$/backend/bookingSysterm/urls.py">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
           <caret line="26" column="44" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/frontend/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
@@ -590,12 +700,16 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/meiduo_django/lib/python3.5/site-packages/django/views/generic/base.py">
+=======
+    <entry file="file://$PROJECT_DIR$/frontend/package.json">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="160">
           <caret line="96" selection-start-line="96" selection-end-line="96" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/frontend/src/components/reservation.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2544">
@@ -604,6 +718,9 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/meiduo_django/lib/python3.5/site-packages/django/http/response.py">
+=======
+    <entry file="file://$PROJECT_DIR$/frontend/src/router/index.js">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6240">
           <caret line="278" column="6" selection-start-line="278" selection-start-column="6" selection-end-line="278" selection-end-column="6" />
@@ -630,6 +747,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/backend/infos/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -641,6 +759,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/utils/common.py">
+=======
+    <entry file="file://C:/Python35/Lib/site-packages/django_crontab/crontab.py" />
+    <entry file="file://$PROJECT_DIR$/backend/logs/generate.log" />
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/-2068372222/time.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/2and3/datetime.pyi">
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
@@ -650,6 +774,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/backend/infos/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -664,11 +789,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
           <caret line="19" column="20" selection-start-line="19" selection-end-line="19" selection-end-column="20" />
+=======
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/reservation.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1121">
+          <caret line="59" column="32" lean-forward="true" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/infos/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/infos/migrations/0001_initial.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="-339" />
       </provider>
     </entry>
@@ -686,24 +828,82 @@
     <entry file="file://$PROJECT_DIR$/backend/infos/migrations/0004_auto_20190905_1849.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-360" />
+=======
+        <state relative-caret-position="-13">
+          <caret line="7" column="76" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/scripts/gen_reservation_table.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/infos/views.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="12" column="42" selection-start-line="12" selection-start-column="42" selection-end-line="12" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/infos/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="779">
           <caret line="118" column="61" selection-start-line="118" selection-start-column="61" selection-end-line="118" selection-end-column="61" />
+=======
+        <state relative-caret-position="-798">
+          <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/frontend/src/components/myreservation.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
           <folding>
             <element signature="n#style#0;n#el-table#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/backend/users/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1305">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-360">
+          <caret line="104" column="14" selection-start-line="104" selection-start-column="14" selection-end-line="104" selection-end-column="14" />
+          <folding>
+            <element signature="e#1290#2621#0" />
+            <element signature="e#1633#1857#0" />
+            <element signature="e#1914#2155#0" />
+            <element signature="e#2209#2308#0" />
+            <element signature="e#2326#2606#0" />
+            <element signature="e#2633#2663#0" />
+>>>>>>> 276face2dfeb6c0ec3bd5dcd1fcd1a26761b27a1
           </folding>
         </state>
       </provider>
