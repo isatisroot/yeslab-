@@ -120,7 +120,7 @@ class MyRerservation(View):
                 'count':i.user.count()
             }
             intvList.append(data)
-        print(intvList)
+        # print(intvList)
 
 
         # 将查询结果按日期分组统计，这一步需要将日期格式挂成天数在分组，因此需要extra
@@ -135,7 +135,7 @@ class MyRerservation(View):
         # 将queryset转换成生成器，可以连续迭代下去
         gene = (x for x in query)
         # 获取当前时间，判断是否临进实验，如果是，
-        today = datetime.datetime.today()
+        today = datetime.datetime.today().date()   # datetime.date(2019,9,9) 年月日
         now = datetime.datetime.now()
 
         for date,count in date_tuple:
@@ -143,7 +143,8 @@ class MyRerservation(View):
             for i in range(count):
                 q = next(gene)
                 tbs_dict = {'tb_id': q.tb_id, 'time_bucket': TIME_BUKET[q.tb_id]}
-                if q.date == today and q.tb_id == time_to_lab(now.hour,now.min):
+                #　判断是否临近实验
+                if q.date == today and q.tb_id == time_to_lab(now.hour,now.minute):
                     tbs_dict['time_to_lab'] = True
 
                 tbs.append(tbs_dict)
@@ -154,7 +155,7 @@ class MyRerservation(View):
 
             }
             dataList.append(data)
-        # print(dataList)
+        print(dataList)
         return JsonResponse([dataList,intvList],safe=False)
 
     def post(self,request):

@@ -21,7 +21,8 @@ from django.conf.urls import url,include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url('',include('users.urls')),
-    url('',include('infos.urls'))
+    url('',include('infos.urls')),
+    url('',include('experiments.urls')),
 
 # url(r'captcha/(?P<uuid>.*)/$',views.Regiter.as_view()),
 #     url(r'register/$', views.Regiter.as_view()),

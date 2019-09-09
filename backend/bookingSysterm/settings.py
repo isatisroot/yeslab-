@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'users.apps.UsersConfig',
     'infos.apps.InfosConfig',
+    'experiments.apps.ExperimentsConfig',
     # 允许跨域
     'corsheaders',
     'rest_framework',
@@ -93,10 +94,10 @@ WSGI_APPLICATION = 'bookingSysterm.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "HOST": "192.168.13.128",
+        "HOST": "192.168.92.149",
         "PORT": 3306,
-        "USER": "lx1736767412",
-        "PASSWORD": "7418529630",
+        "USER": "root",
+        "PASSWORD": "mysql",
         "NAME": "userinfo",
     }
 }
@@ -104,28 +105,28 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.13.128:6379/0",
+        "LOCATION": "redis://192.168.92.149:6379/0",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.13.128:6379/1",
+        "LOCATION": "redis://192.168.92.149:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "verify": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.13.128:6379/2",
+        "LOCATION": "redis://192.168.92.149:6379/2",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "email": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.13.128:6379/3",
+        "LOCATION": "redis://192.168.92.149:6379/3",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }

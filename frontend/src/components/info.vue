@@ -2,8 +2,8 @@
 	<el-container class="container">
 	  <el-header>
 		  <div class="logo">
-				<img src="" alt="">
-				<span>Yeslab</span>
+				<img src="../assets/Yeslab_logo.png" alt="yeslab_logo">
+<!--				<span>Yeslab</span>-->
 		  </div>
 		  <div class="userinfo">
 			  {{username}}

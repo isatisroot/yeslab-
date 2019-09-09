@@ -12,7 +12,8 @@
     <el-table-column
       prop="date"
       label="日期"
-      width="180">
+      width="180"
+    style="border-left: 20px">
     </el-table-column>
     <el-table-column
       prop="time_bucket"
@@ -22,6 +23,10 @@
     <el-table-column
       prop="count"
       label="面试人数">
+    </el-table-column>
+    <el-table-column
+      prop="msg"
+      label="备注">
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -51,9 +56,12 @@
 				
 				<el-col :span=6 v-for="tb in it.tbs">
 					<el-badge value="已预约" class="item" >
-						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)">
+						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)" v-if="!tb.time_to_lab">
 						{{tb.time_bucket}}
 						</el-button>
+            <el-button v-on:click="to_lab(it.date,tb.tb_id)" v-else>
+              <span>进入实验</span>
+            </el-button>
 					</el-badge>
 				</el-col>
 			</el-row>
@@ -109,7 +117,7 @@
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
-				  // console.log(response.data[1].tbs);
+				  console.log(response.data[1].tbs);
 					this.info = response.data[0];
           this.interview = response.data[1]
 				}).catch(error=>{
@@ -137,6 +145,7 @@
 							type: 'success',
 							message: '取消预约成功!'
 						});
+						this.$router.go()
 					}).catch(error=>{
 						this.$message({
 							type: 'error',
@@ -163,6 +172,18 @@
 			// 	  message: h('i', { style: 'color: teal'}, '操作成功！')
 			// 	});
       // },
+      to_lab:function(userid){
+			  this.axios.post(this.host + '/experiment/',
+        {date:date,tb_id:tb_id,userid:this.userid},
+					{responseType:'json',
+					headers: {'Authorization': 'JWT ' + this.token},
+					withCredentials: true    //跨域带上cookies
+					}).then(response=>{
+					  console.log(response.data)
+        }).catch(error=>{
+          console.lgo(error)
+        })
+      },
 		},
 		filters:{
 			format2:function(date,fmt){

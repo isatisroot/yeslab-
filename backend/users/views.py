@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http.response import HttpResponse,JsonResponse,HttpResponseBadRequest
 from utils.captcha.captcha import Captcha
-from bookingSysterm.setting import EMAIL_HOST_USER
+from bookingSysterm.settings import EMAIL_HOST_USER
 
 
 # Create your views here.
