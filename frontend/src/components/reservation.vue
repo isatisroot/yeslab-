@@ -17,12 +17,12 @@
       <el-button plain v-on:click="get_info(date6)">{{date6|format("yyyy-MM-dd")}}</el-button>
       <el-button plain v-on:click="get_info(date7)">{{date7|format("yyyy-MM-dd")}}</el-button>
 		</el-col>
-		
+
 		<el-col :span="20" class="con">
 			<el-row class="con_title">{{info[0].date}}</el-row>
 			<el-divider></el-divider>
 			<el-row class="con_con">
-				<el-col :span=6 v-for="it in info">
+				<el-col :span=5 v-for="it in info">
 					<el-badge :value="it.userid&&it.userid==userid?'预约':''" class="item">
 						<el-button type="success" v-on:click="sub_rv(it.date,it.tb_id)" :disabled="it.userid?true:false">
 						{{it.time_bucket}}
@@ -32,7 +32,6 @@
 
 			</el-row>
 		</el-col>
-		
 	</el-row>
 	</div>
 </template>
@@ -46,6 +45,8 @@
 				token:sessionStorage.token || localStorage.token,
 
 				info:[],
+        old_info:[],
+
 				date:new Date()
 			}
 		},
@@ -64,8 +65,13 @@
 		},
 		methods:{
 			get_info:function(date){
-			  console.log(date.getMonth()+1)
-				// console.log(this.date2str(date));
+			  var d = this.date2str(date);
+			  this.old_info=[
+			    {"date":d,"tb_id":1,"time_bucket":"2:00-6:00"},
+        {"date":d,"tb_id":2,"time_bucket":"6:30-10:30"},
+        {"date":d,"tb_id":3,"time_bucket":"11:00-15:00"},
+        {"date":d,"tb_id":4,"time_bucket":"15:30-19:30"},
+        {"date":d,"tb_id":5,"time_bucket":"20:00-24:00"}];
 
 				this.axios.get(this.host+'/get_info/?date='+this.date2str(date),
 				{responseType:'json',
@@ -73,12 +79,28 @@
 				withCredentials: true,    //跨域带上cookies
 				},
 				).then(response=>{
-					console.log(response.data);
-					this.info = response.data
+					// console.log(response.data);
+					// console.log(this.old_info);
+          this.info = this.merge_data(response.data);
+            // console.log(this.merge_data(response.data))
 				}).catch(error=>{
 					console.log(error.response.data);
 				})
 			},
+      merge_data:function(data){
+        if(data!=''){
+          for(var i=0;i<data.length;i++){
+            for(var j=0;j < 5;j++){
+              if (data[i].tb_id === this.old_info[j].tb_id){
+                this.old_info[j] = data[i]
+              }
+          }
+        }
+          return this.old_info
+        }else{return this.old_info}
+
+
+      },
 			sub_rv:function(date,tb_id){
 				// 提交预约
 				// 弹窗确认
@@ -95,7 +117,7 @@
 					},
 					).then(response=>{
 					  console.log(response.data);
-						this.info=response.data;
+						this.info=this.merge_data(response.data);
             // this.$router.go(0);
 						// this.open1();
 						this.$message({

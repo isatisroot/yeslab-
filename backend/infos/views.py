@@ -40,7 +40,7 @@ class Reservation(View):
         else:
             dataList = self.make_response(query)
 
-        # print(dataList)
+            print(dataList)
             return JsonResponse(dataList, safe=False)
 
     def post(self,request):
@@ -50,11 +50,12 @@ class Reservation(View):
         tb_id = req_data.get('tb_id')
         user_id = req_data.get('userid')
         print(date,tb_id,user_id)
-        q = ReservationInfo.objects.filter(date=date,tb_id=tb_id)[0]
-        if q.user_id:
+        query = ReservationInfo.objects.filter(date=date,tb_id=tb_id,user_id=user_id)
+        if query:
             return HttpResponseBadRequest(content='已经预约')
-
-        q.user_id = user_id
+        q = ReservationInfo(
+            date=date, tb_id=tb_id, user_id=user_id
+        )
         q.save()
         print('预约成功')
         query = ReservationInfo.objects.filter(date=date)
@@ -66,19 +67,29 @@ class InterviewView(View):
     def get(self,request):
         req_date = request.GET.get('date')
 
-        query = InterviewInfo.objects.filter(date=req_date)
+        query = InterviewInfo.objects.filter(date__gte=req_date)
         print(query)
-        dataList =[]
 
-        for q in query:
+        date_tuple = query.extra(select={'date': "DATE_FORMAT(date,'%%Y-%%m-%%d')"}) \
+            .values('date').annotate(count=Count('date')) \
+            .values_list('date', 'count')
+        gene = (x for x in query)
+        dataList = []
+        for date,count in date_tuple:
+            tbs = []
+            for i in range(count):
+                q = next(gene)
+                tbs_dict = {'remaining':q.num-q.user.count(),'tb_id': q.tb_id, 'time_bucket': INTERVIEW_TIME_BUKET[q.tb_id]}
+                tbs.append(tbs_dict)
+
             data = {
-                'date': datetime.datetime.strftime(q.date, '%Y-%m-%d'),
-                'remaining':q.num-q.user.count(),
-                'tb_id': q.tb_id,
+                'date': date,
 
-                'time_bucket': INTERVIEW_TIME_BUKET[q.tb_id]
+                'tbs': tbs,
+
             }
             dataList.append(data)
+
 
         print(dataList)
         return JsonResponse(dataList, safe=False)

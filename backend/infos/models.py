@@ -1,12 +1,14 @@
+import datetime
 from django.db import models
 from users.models import UserInfo
 from utils.constant import TIME_BUKET
+
 
 # Create your models here.
 class ReservationInfo(models.Model):
     date = models.DateField(verbose_name='预约日期')
     tb_id = models.SmallIntegerField(verbose_name='预约时段')
-    user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True)
+    user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True,blank=True)
 
     class Meta:
         db_table = 'tb_reservationinfo'
@@ -14,19 +16,19 @@ class ReservationInfo(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.date
+        return datetime.datetime.strftime(self.date,'%Y-%m-%s')
 
-class PeriodInfo(models.Model):
-    PERIOD_CHOICES = tuple(TIME_BUKET.items())
-    period = models.SmallIntegerField(choices=PERIOD_CHOICES,verbose_name='预约时段')
-    # 级联，删除主表(tb_reservationinfo)数据时连同一起删除外键表中的数据
-    reservation = models.ForeignKey(ReservationInfo,on_delete=models.CASCADE)
-    # 设置为NULL，仅在该字段null=True允许为null时可用
-    user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True,blank=True)
-    class Meta:
-        db_table = 'tb_period'
-        verbose_name = '预约时段表'
-        verbose_name_plural = verbose_name
+# class PeriodInfo(models.Model):
+#     PERIOD_CHOICES = tuple(TIME_BUKET.items())
+#     period = models.SmallIntegerField(choices=PERIOD_CHOICES,verbose_name='预约时段')
+#     # 级联，删除主表(tb_reservationinfo)数据时连同一起删除外键表中的数据
+#     reservation = models.ForeignKey(ReservationInfo,on_delete=models.CASCADE)
+#     # 设置为NULL，仅在该字段null=True允许为null时可用
+#     user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True,blank=True)
+#     class Meta:
+#         db_table = 'tb_period'
+#         verbose_name = '预约时段表'
+#         verbose_name_plural = verbose_name
 
 class InterviewInfo(models.Model):
     PERIOD_CHOICES = (

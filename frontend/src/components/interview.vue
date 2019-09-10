@@ -6,34 +6,29 @@
 			<span>剩余约时间段<b>{{remanent}}</b></span>
 		</el-col>
 	</el-row>
-
+<div v-for="i in info">
 	<el-row>
 		<el-col :span="4"  class="date">
-			  <el-button plain v-on:click="get_info(date)">{{date|format("yyyy-MM-dd")}}</el-button>
-			  <el-button plain v-on:click="get_info(date2)">{{date2|format("yyyy-MM-dd")}}</el-button>
-			  <el-button plain v-on:click="get_info(date3)">{{date3|format("yyyy-MM-dd")}}</el-button>
-      <el-button plain v-on:click="get_info(date4)">{{date4|format("yyyy-MM-dd")}}</el-button>
-      <el-button plain v-on:click="get_info(date5)">{{date5|format("yyyy-MM-dd")}}</el-button>
-      <el-button plain v-on:click="get_info(date6)">{{date6|format("yyyy-MM-dd")}}</el-button>
-      <el-button plain v-on:click="get_info(date7)">{{date7|format("yyyy-MM-dd")}}</el-button>
+			  <el-button plain v-on:click="get_info(date)" >{{i.date}}</el-button>
 		</el-col>
-
 		<el-col :span="20" class="con">
-			<el-row class="con_title">{{info[0].date}}</el-row>
+			<el-row class="con_title" >{{i.date}}</el-row>
 			<el-divider></el-divider>
 			<el-row class="con_con">
-				<el-col :span=6 v-for="it in info">
+				<el-col :span=6 v-for="it in i.tbs">
 					<el-badge :value="it.remaining?'剩余：'+it.remaining:''" class="item">
-						<el-button type="success" v-on:click="sub_rv(it.date,it.tb_id)" :disabled="it.remaining==0?true:false">
+						<el-button type="success" v-on:click="sub_rv(i.date,it.tb_id)" :disabled="it.remaining==0?true:false">
 						{{it.time_bucket}}
 						</el-button>
 					</el-badge>
 				</el-col>
 
 			</el-row>
+
 		</el-col>
 
 	</el-row>
+  </div>
 	</div>
 </template>
 
@@ -52,11 +47,11 @@
 		},
 		computed:{
 			date2:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+1)},
-			date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+2)},
-      date4:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+3)},
-      date5:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+4)},
-      date6:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+5)},
-      date7:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+6)},
+			// date3:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+2)},
+      // date4:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+3)},
+      // date5:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+4)},
+      // date6:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+5)},
+      // date7:function(){return new Date(this.date.getFullYear(),this.date.getMonth(),this.date.getDate()+6)},
 			reserved:function(){var j=0;for(var i of this.info){if(i.userid){j+=1}};return j;},
 			remanent:function(){return 16-this.reserved},
 		},
@@ -65,7 +60,7 @@
 		},
 		methods:{
 			get_info:function(date){
-			  console.log(date.getMonth()+1)
+			  // console.log(date.getMonth()+1)
 				// console.log(this.date2str(date));
 
 				this.axios.get(this.host+'/interview_msg/?date='+this.date2str(date),
