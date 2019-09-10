@@ -8,11 +8,12 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http.response import HttpResponse,JsonResponse,HttpResponseBadRequest
 from utils.captcha.captcha import Captcha
-from bookingSysterm.settings import EMAIL_HOST_USER
+
+from django.conf import settings
+
 
 
 # Create your views here.
-
 
 class Regiter(View):
     def get(self, request, uuid):
@@ -140,9 +141,13 @@ class Forgot(View):
         print(text)
 
         # 发送邮件
-        send_mail('YesLab教务系统密码重置', '验证码：'+text, EMAIL_HOST_USER, [email], fail_silently=False)
-
-        return HttpResponse(text)
+        try:
+            send_mail('YesLab教务系统密码重置', '验证码：'+text, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+            stat = 'true'
+        except:
+            stat = 'false'
+        print(stat)
+        return HttpResponse(stat)
 
     def post(self, request):
         json_str = request.body.decode()

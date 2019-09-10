@@ -209,7 +209,7 @@
   .el-form {
     width: 400px;
     height: 300px;
-    margin: 50px auto 40px auto;
+    margin: 50px auto 35px auto;
     font-size: 16px;
 
   }

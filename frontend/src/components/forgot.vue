@@ -29,8 +29,12 @@
     </el-form>
 
     <div>
-      <router-link :to="'/account/login'" tag="div" class="footer">去登陆</router-link>
-      <router-link :to="'/account/register'" tag="div" class="footer">去注册</router-link>
+      <div class="footer">
+        <router-link :to="'/account/login'" class="foot">登 陆&nbsp;</router-link>
+      </div>
+      <div class="footer">
+        <router-link :to="'/account/register'" class="foot">&nbsp;注 册</router-link>
+      </div>
     </div>
 
   </div>
@@ -126,22 +130,34 @@
       generate_email() {
         this.$refs.ruleForm2.validateField('email', (value, valid) => {
           if (!valid) {
-            this.send_email = false;
-            console.log(this.host);
             this.ruleForm2.uuid = util.generate_uuid()
             this.email_url = this.host + '/email/' + this.ruleForm2.uuid + "/" + this.ruleForm2.email + "/";
             this.axios.get(this.email_url)
-            this.ruleForm2.sendmail = true
-            setTimeout(() => {
-              this.send_email = true;
-              console.log("send_email_btn", this.send_email);
-            }, 3000);
+            .then(response => {
+              if (response.data == 'true') {
+                this.send_email = false;
+                this.ruleForm2.sendmail = true
+                setTimeout(() => {
+                  this.send_email = true;
+                  console.log("send_email_btn", this.send_email);
+                }, 3000);
+              }else {
+                this.$message({
+                  type: 'error',
+                  message: '邮件发送失败!请检查邮箱地址是否正确'
+                });
+              }
+            })
+            .catch(error => {
+              this.$message({
+                type: 'error',
+                message: '邮件发送失败!请稍后再试'
+              });
+            })
           }
         });
-        console.log(this.ruleForm2.uuid);
       },
       submitForm(formName) {
-        console.log(this.ruleForm2.uuid);
         this.$refs[formName].validate((valid) => {
           if (!this.ruleForm2.sendmail) {
             this.$message({
@@ -183,15 +199,29 @@
 
 <style>
   .footer {
-    line-height: 50px;
-    width: 49%;
+    width: 225px;
     height: 50px;
-    text-align: center;
     display: inline-block;
-    color: #8A82DB;
-    background: linear-gradient(#F0F8FF, white, #F0F8FF);
-    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
 
+  }
+
+  .foot {
+    color: #ADD8E6;
+    text-align: center;
+    font-size: 25px;
+    font-family: arial;
+    cursor: default;
+    transition: 0.1s ease-in-out;
+    font-weight: lighter;
+
+  }
+
+  .footer .foot:hover {
+    color: #8E9CFA;
+    font-weight: normal;
+    font-size: 27px;
   }
 
   #mailbtn {
@@ -201,7 +231,7 @@
   .el-form {
     width: 400px;
     height: 300px;
-    margin: 50px auto 40px auto;
+    margin: 50px auto 35px auto;
     font-size: 16px;
 
   }
