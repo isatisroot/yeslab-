@@ -59,8 +59,8 @@
 						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)" v-if="!tb.time_to_lab">
 						{{tb.time_bucket}}
 						</el-button>
-            <el-button v-on:click="to_lab(it.date,tb.tb_id)" v-else>
-              <span>进入实验</span>
+            <el-button  v-else>
+              <span v-on:click="to_lab()">进入实验</span>
             </el-button>
 					</el-badge>
 				</el-col>
@@ -172,14 +172,15 @@
 			// 	  message: h('i', { style: 'color: teal'}, '操作成功！')
 			// 	});
       // },
-      to_lab:function(userid){
-			  this.axios.post(this.host + '/experiment/',
-        {date:date,tb_id:tb_id,userid:this.userid},
+      to_lab:function(){
+			  this.axios.get(this.host + '/experiment/',
+        // {date:date,tb_id:tb_id,userid:this.userid},
 					{responseType:'json',
 					headers: {'Authorization': 'JWT ' + this.token},
 					withCredentials: true    //跨域带上cookies
 					}).then(response=>{
-					  console.log(response.data)
+					  console.log(response.data);
+          sessionStorage.token_lab = response.data.token;
         }).catch(error=>{
           console.lgo(error)
         })

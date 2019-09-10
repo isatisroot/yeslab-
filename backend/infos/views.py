@@ -8,9 +8,13 @@ from users.models import UserInfo
 from utils.constant import TIME_BUKET,INTERVIEW_TIME_BUKET
 from utils.common import time_to_lab
 from django.db.models import Count
+from rest_framework.permissions import IsAuthenticated
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 # Create your views here.
 
 class Reservation(View):
+
     def make_response(self,query):
         dataList = []
         for q in query:
@@ -24,6 +28,8 @@ class Reservation(View):
             dataList.append(data)
 
         return dataList
+
+    # @method_decorator(login_required)
     def get(self,request):
         req_date = request.GET.get('date')
 
@@ -108,7 +114,7 @@ class MyRerservation(View):
         # 通过用户表查询关联的interviewinfo（面试预约表），返回查询集
         intv_query = u.interviewinfo_set.filter()
         # 通过用户表查询关联的中间表，返回中间表的数据
-        inter_user_obj = u.interviewinfo_set.through.objects.filter(userinfo_id=u.id)
+        # inter_user_obj = u.interviewinfo_set.through.objects.filter(userinfo_id=u.id)
         intvList = []
         for q in intv_query:
             # 查询该时段共有多少个人预约

@@ -17,12 +17,12 @@ import datetime
 
 def main():
     today = datetime.date.today()
-    for i in range(0,7):
-        t = today + datetime.timedelta(days=i)
-        print(t)
-        for j in range(1,17):
-            reser = ReservationInfo(date=t,tb_id=j)
-            reser.save()
+
+    t = today + datetime.timedelta(days=6)
+
+    for j in range(1,17):
+        reser = ReservationInfo(date=t,tb_id=j)
+        reser.save()
 
 if __name__ == '__main__':
     main()

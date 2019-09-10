@@ -170,7 +170,7 @@
               // // 页面跳转
               // // location.href = return_url;
               this.$router.push({
-                name: 'login'
+                path: 'account/login'
               })
 
             }).catch(error => {

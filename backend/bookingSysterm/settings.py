@@ -49,6 +49,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_crontab',  # 定时任务
 
+    # 配置后台管理系统
+    'xadmin',
+    'crispy_forms',
+    'reversion',
+
 ]
 
 MIDDLEWARE = [
@@ -195,8 +200,8 @@ m: 月（1-12）。
 d: 一星期内的天（0~6，0为星期天）。
 """
 CRONJOBS = [
-    # 每个礼拜执行一次
-    ('* * * * 0', 'scripts.gen_reservation_table.main','>>/home/python/Desktop/yeslab-booking-systerm/backend/logs/generate.log')
+    # 每天０点执行一次
+    ('* 0 1 * *', 'scripts.gen_reservation_table.main','>>/home/python/Desktop/yeslab-booking-systerm/backend/logs/generate.log')
 ]
 
 # 解决crontab中文问题
@@ -204,3 +209,12 @@ CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
 
 # 邮件设置
 EMAIL_HOST_USER = ''
+
+
+# 权限认证
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',   # 基本认证
+        # 'rest_framework.authentication.SessionAuthentication',  # session认证
+    )
+}

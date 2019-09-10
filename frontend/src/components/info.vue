@@ -43,6 +43,7 @@
 </template>
 
 <script>
+  import login from './login.vue'
 	export default {
 	  data() {
 	    return {
@@ -51,10 +52,16 @@
 			token:sessionStorage.token || localStorage.token,
 	  };
 	  },
+    mounted(){
+	    if(!this.token){
+	      this.$router.push({path: 'account'})
+      }
+    },
 	  methods: {
 	    onSubmit() {
 	      console.log('submit!');
-	    }
+	    },
+
 	  },
 	}
 </script>
