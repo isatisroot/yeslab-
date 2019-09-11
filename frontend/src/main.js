@@ -10,7 +10,7 @@ import router from './router'
 
 import axios from 'axios'
 Vue.prototype.axios = axios
-Vue.prototype.host = "http://127.0.0.1:8000"
+Vue.prototype.host = "http://192.168.92.149:8000"
 
 Vue.use(ElementUI);
 Vue.use(VueRouter)

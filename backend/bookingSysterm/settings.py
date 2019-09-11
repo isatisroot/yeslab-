@@ -208,7 +208,15 @@ CRONJOBS = [
 CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
 
 # 邮件设置
-EMAIL_HOST_USER = ''
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.exmail.qq.com'
+EMAIL_PORT = 465
+#发送邮件的邮箱
+EMAIL_HOST_USER = 'Chensy@yeslab.net'
+#在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'Csy727167175'
+#收件人看到的发件人
+EMAIL_FROM = 'python<admin@yeslab.net>'
 
 
 # 权限认证
