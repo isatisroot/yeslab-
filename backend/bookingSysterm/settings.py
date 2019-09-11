@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'infos.apps.InfosConfig',
     'experiments.apps.ExperimentsConfig',
+    'courses.apps.CoursesConfig',
     # 允许跨域
     'corsheaders',
     'rest_framework',

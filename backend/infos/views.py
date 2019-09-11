@@ -84,9 +84,7 @@ class InterviewView(View):
 
             data = {
                 'date': date,
-
                 'tbs': tbs,
-
             }
             dataList.append(data)
 

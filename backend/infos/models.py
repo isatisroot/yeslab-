@@ -16,7 +16,7 @@ class ReservationInfo(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return datetime.datetime.strftime(self.date,'%Y-%m-%s')
+        return datetime.datetime.strftime(self.date,'%Y-%m-%d')
 
 # class PeriodInfo(models.Model):
 #     PERIOD_CHOICES = tuple(TIME_BUKET.items())
