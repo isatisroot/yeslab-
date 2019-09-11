@@ -199,13 +199,13 @@ D：天（1-31）。
 m: 月（1-12）。
 d: 一星期内的天（0~6，0为星期天）。
 """
-CRONJOBS = [
-    # 每天０点执行一次
-    ('* 0 1 * *', 'scripts.gen_reservation_table.main','>>/home/python/Desktop/yeslab-booking-systerm/backend/logs/generate.log')
-]
+# CRONJOBS = [
+#     # 每天０点执行一次
+#     ('* 0 1 * *', 'scripts.gen_reservation_table.main','>>/home/python/Desktop/yeslab-booking-systerm/backend/logs/generate.log')
+# ]
 
 # 解决crontab中文问题
-CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
+# CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
 
 # 邮件设置
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
