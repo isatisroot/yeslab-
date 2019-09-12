@@ -33,7 +33,8 @@ class ReservationInfo(models.Model):
 class InterviewInfo(models.Model):
     PERIOD_CHOICES = (
         (1, '上午'),
-        (2, '下午')
+        (2, '下午'),
+        (3,'晚上')
     )
     date = models.DateField(verbose_name='开放预约日期')
     tb_id = models.SmallIntegerField(choices=PERIOD_CHOICES,verbose_name='开放面试时段')

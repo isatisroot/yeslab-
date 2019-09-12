@@ -12,8 +12,8 @@
 			  <el-button plain v-on:click="get_info(date)" >{{i.date}}</el-button>
 		</el-col>
 		<el-col :span="20" class="con">
-			<el-row class="con_title" >{{i.date}}</el-row>
-			<el-divider></el-divider>
+<!--			<el-row class="con_title" >{{i.date}}</el-row>-->
+<!--			<el-divider></el-divider>-->
 			<el-row class="con_con">
 				<el-col :span=6 v-for="it in i.tbs">
 					<el-badge :value="it.remaining?'剩余：'+it.remaining:''" class="item">

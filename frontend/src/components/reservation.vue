@@ -67,8 +67,8 @@
 			get_info:function(date){
 			  var d = this.date2str(date);
 			  this.old_info=[
-			    {"date":d,"tb_id":1,"time_bucket":"2:00-6:00"},
-        {"date":d,"tb_id":2,"time_bucket":"6:30-10:30"},
+			    {"date":d,"tb_id":1,"time_bucket":"00:00-06:00"},
+        {"date":d,"tb_id":2,"time_bucket":"06:30-10:30"},
         {"date":d,"tb_id":3,"time_bucket":"11:00-15:00"},
         {"date":d,"tb_id":4,"time_bucket":"15:30-19:30"},
         {"date":d,"tb_id":5,"time_bucket":"20:00-24:00"}];

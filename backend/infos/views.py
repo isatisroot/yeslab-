@@ -159,7 +159,7 @@ class MyRerservation(View):
                 q = next(gene)
                 tbs_dict = {'tb_id': q.tb_id, 'time_bucket': TIME_BUKET[q.tb_id]}
                 #　判断是否临近实验
-                if q.date == today and q.tb_id == time_to_lab(now.hour,now.minute):
+                if q.date == today and q.tb_id == time_to_lab(now.hour):
                     tbs_dict['time_to_lab'] = True
 
                 tbs.append(tbs_dict)
