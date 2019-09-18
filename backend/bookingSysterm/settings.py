@@ -28,7 +28,7 @@ SECRET_KEY = '7e&-rc(ku-i33k*%0+5ftqlk7)foz)+*ilebu1susbef#7454o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","183.6.116.44","*"]
 
 
 # Application definition
@@ -97,47 +97,71 @@ WSGI_APPLICATION = 'bookingSysterm.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+class DBS():
+    def __init__(self,DEBUG):
+        self.DEBUG=DEBUG
+        self.formal_db = {
+            "ENGINE": "django.db.backends.mysql",
+            "HOST": os.getenv("MYSQL_HOST", "172.99.0.4"),
+            "PORT": os.getenv("MYSQL_PORT", 3306),
+            "USER": os.getenv("MYSQL_USER", "root"),
+            "PASSWORD": os.getenv("MYSQL_PWD", "0.0010.0"),
+            "NAME": os.getenv("MYSQL_NAME", "yeslab_db"),
+        }
+        self.test_db = {
+            "ENGINE": "django.db.backends.mysql",
+            "HOST": os.getenv("MYSQL_HOST", "192.168.92.149"),
+            "PORT": os.getenv("MYSQL_PORT", 3306),
+            "USER": os.getenv("MYSQL_USER", "root"),
+            "PASSWORD": os.getenv("MYSQL_PWD", "mysql"),
+            "NAME": os.getenv("MYSQL_NAME", "userinfo"),
+        }
+
+    def default_db(self):
+        if self.DEBUG:
+            return self.test_db
+        else:
+            return self.formal_db
+
+dbs = DBS(DEBUG)
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "HOST": "192.168.92.149",
-        "PORT": 3306,
-        "USER": "root",
-        "PASSWORD": "mysql",
-        "NAME": "userinfo",
-    }
+    "default": dbs.default_db()
 }
+
+uri = "redis://192.168.92.149:6379"
 
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.92.149:6379/0",
+        "LOCATION": "%s/0"%os.getenv("REDIS_URI",uri),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "session": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.92.149:6379/1",
+        "LOCATION": "%s/1"%os.getenv("REDIS_URI",uri),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "verify": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.92.149:6379/2",
+        "LOCATION": "%s/2"%os.getenv("REDIS_URI",uri),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     },
     "email": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://192.168.92.149:6379/3",
+        "LOCATION": "%s/3"%os.getenv("REDIS_URI",uri),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
     }
 }
+
 
 
 # Password validation
@@ -177,6 +201,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,"static")
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
