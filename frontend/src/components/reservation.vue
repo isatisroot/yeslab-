@@ -43,10 +43,8 @@
 				userid:sessionStorage.user_id || localStorage.user_id,
 				username:sessionStorage.username || localStorage.username,
 				token:sessionStorage.token || localStorage.token,
-
 				info:[],
         old_info:[],
-
 				date:new Date()
 			}
 		},
@@ -65,6 +63,7 @@
 		},
 		methods:{
 			get_info:function(date){
+		    let rock = this.$route.query.rock;
 			  var d = this.date2str(date);
 			  this.old_info=[
 			    {"date":d,"tb_id":1,"time_bucket":"00:00-06:00"},
@@ -73,7 +72,7 @@
         {"date":d,"tb_id":4,"time_bucket":"15:30-19:30"},
         {"date":d,"tb_id":5,"time_bucket":"20:00-24:00"}];
 
-				this.axios.get(this.host+'/get_info/?date='+this.date2str(date),
+				this.axios.get(this.host+'/get_info/?rock='+rock+'&date='+this.date2str(date),
 				{responseType:'json',
 				headers: {'Authorization': 'JWT ' + this.token},
 				withCredentials: true,    //跨域带上cookies
@@ -132,8 +131,6 @@
 							message: '预约失败!'
 						});
 					})
-					
-				  
 				  
 				}).catch(() => {
 				  this.$message({

@@ -4,7 +4,7 @@
     <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
 
       <el-form-item label="用 户 名" prop="user">
-        <el-input placeholder="请输入11位手机号" type="text" v-model="ruleForm2.user" auto-complete="off"></el-input>
+        <el-input placeholder="请输入6-12位英文或数字字符" type="text" v-model="ruleForm2.user" auto-complete="off"></el-input>
       </el-form-item>
 
       <el-form-item label="密码" prop="pass">
@@ -44,7 +44,7 @@
         console.log(value, /^\d{11}$/.test(value))
         if (value === '') {
           callback(new Error('请输入用户名'));
-        } else if (!/^\d{11}$/.test(value)) {
+        } else if (!/^\w{6,12}$/.test(value)) {
           callback(new Error('请输入11位手机号'));
         } else {
           callback()
@@ -170,7 +170,7 @@
               // // 页面跳转
               // // location.href = return_url;
               this.$router.push({
-                path: 'account/login'
+                router: 'info'
               })
 
             }).catch(error => {

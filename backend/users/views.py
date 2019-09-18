@@ -1,7 +1,7 @@
 import json
 from rest_framework_jwt.settings import api_settings
 from django_redis import get_redis_connection
-from .models import UserInfo
+from users.models import UserInfo as UserInfos
 from django.core.mail import send_mail
 
 from django.shortcuts import render
@@ -36,7 +36,7 @@ class Regiter(View):
         redis = get_redis_connection('verify')
         text = redis.get('uuid:%s' % uuid)
         if not text:
-            print('不存在')
+            print('验证码已过期')
             return HttpResponseBadRequest({'msg': '验证码已过期'})
         text = text.decode()
         if text.upper() != captcha.upper():
@@ -44,7 +44,7 @@ class Regiter(View):
             return HttpResponseBadRequest({'msg': '验证码不匹配'})
         print('ok')
 
-        user_exist = UserInfo.objects.filter(username=username).exists()
+        user_exist = UserInfos.objects.filter(username=username).exists()
         if user_exist:
             print('用户名已存在')
             return HttpResponseBadRequest({'msg': '用户名已存在'})
@@ -56,7 +56,7 @@ class Regiter(View):
             print('信息不完整')
             return HttpResponseBadRequest({'msg': '信息不完整'})
 
-        user = UserInfo(
+        user = UserInfos(
             username=username,
             password=password,
             email=email
@@ -92,7 +92,9 @@ class Login(View):
         uuid = data.get('uuid')
 
         try:
-            user = UserInfo.objects.get(username=username)
+            print(type(username))
+            user = UserInfos.objects.get(username=username)
+            print(user)
             if user.password == password:
                 print("密码正确")
             else:
@@ -160,7 +162,7 @@ class Forgot(View):
 
         # 对输入信息进行判断
         try:
-            user = UserInfo.objects.get(username=username, email=email)
+            user = UserInfos.objects.get(username=username, email=email)
         except:
             print("用户不存在")
             return HttpResponseBadRequest({'msg': '用户不存在或邮箱错误！'})
@@ -184,3 +186,10 @@ class Forgot(View):
 
         user_id = user.id
         return JsonResponse({'username': username, 'user_id': user_id, 'msg': 'successful'})
+
+class UserInfo(View):
+    def get(self,request):
+        pass
+
+    def post(self,request):
+        pass

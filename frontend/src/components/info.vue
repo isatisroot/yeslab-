@@ -18,9 +18,16 @@
 					<router-link :to="'/info/userinfo'">用户中心</router-link>
 				</li>
 				<el-divider></el-divider>
-				<li>
-					<i class="el-icon-phone"></i>
-					<router-link :to="'/info/reservation'">预约实验</router-link>
+				<li @click="isactive= !isactive" >
+          <span ></span>
+					<i class="el-icon-phone" ></i>预约实验
+          <ul v-bind:class="{current:isactive}">
+            <li @click.stop="goreservation(1)"><span>Rock1</span></li>
+            <li @click.stop="goreservation(2)"><span>Rock2</span></li>
+            <li @click.stop="goreservation(3)"><span>Rock3</span></li>
+            <li @click.stop=""><router-link :to="'/info/reservation/?rock=4'"><span>Rock4</span></router-link></li>
+			    </ul>
+
 				</li>
 				<el-divider></el-divider>
         <li><i class="el-icon-phone"></i>
@@ -44,12 +51,14 @@
 
 <script>
   import login from './login.vue'
+  import reservation from './reservation.vue'
 	export default {
 	  data() {
 	    return {
-			userid:sessionStorage.user_id || localStorage.user_id,
-			username:sessionStorage.username || localStorage.username,
-			token:sessionStorage.token || localStorage.token,
+	      isactive:true,
+			  userid:sessionStorage.user_id || localStorage.user_id,
+			  username:sessionStorage.username || localStorage.username,
+			  token:sessionStorage.token || localStorage.token,
 	  };
 	  },
     mounted(){
@@ -58,12 +67,16 @@
       }
     },
 	  methods: {
+      goreservation(num) {
+        this.$router.push({path:'/info/reservation',query: {rock: num }})
+      },
 	    onSubmit() {
 	      console.log('submit!');
 	    },
 
 	  },
 	}
+
 </script>
 
 <style scoped>
@@ -112,7 +125,30 @@
 .el-aside li i{
 	margin-right: 10px;
 }
+.el-aside li ul{
+  margin-top: 10px;
+  border-top: 1px solid #dddddd;
+}
+.el-aside li ul li{
+  font-size:18px;
+  /*text-indent:10px;*/
+  background-color: #ffffff;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  width: 280px;
+
+  /*margin-left: 20px;*/
+  /*margin-right: 10px;*/
+
+}
+.el-aside li ul li span{
+  font-size: 20px;
+  color: #c2a1ef;
+}
 .el-main{
 	background-color: #eee;
 }
+  .current{
+    display:none
+  }
 </style>

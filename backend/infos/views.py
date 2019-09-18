@@ -32,6 +32,7 @@ class Reservation(View):
     # @method_decorator(login_required)
     def get(self,request):
         req_date = request.GET.get('date')
+        rock = request.GET.get('rock')
 
         try:
             query = ReservationInfo.objects.filter(date=req_date)
@@ -41,7 +42,10 @@ class Reservation(View):
             dataList = self.make_response(query)
 
             print(dataList)
-            return JsonResponse(dataList, safe=False)
+            if rock == '1':
+                return JsonResponse(dataList, safe=False)
+            else:
+                return JsonResponse([],safe=False)
 
     def post(self,request):
         json_str = request.body.decode()
@@ -115,16 +119,15 @@ class InterviewView(View):
 class MyRerservation(View):
     def get(self,request,user_id):
         dataList = []
-
+        intvList = []
         # 查询实验预约表
         query = ReservationInfo.objects.filter(user_id=user_id)
-
         u = UserInfo.objects.get(id=user_id)
         # 通过用户表查询关联的interviewinfo（面试预约表），返回查询集
         intv_query = u.interviewinfo_set.filter()
         # 通过用户表查询关联的中间表，返回中间表的数据
         # inter_user_obj = u.interviewinfo_set.through.objects.filter(userinfo_id=u.id)
-        intvList = []
+
         for q in intv_query:
             # 查询该时段共有多少个人预约
             i = InterviewInfo.objects.filter(date=q.date, tb_id=q.tb_id)[0]
@@ -144,8 +147,8 @@ class MyRerservation(View):
             .values('date').annotate(count=Count('date'))\
             .values_list('date','count')
 
-        if not query:
-            return JsonResponse({'msg':'还没有预约'})
+        # if not query:
+        #     return JsonResponse({'msg':'还没有预约'})
 
         # 将queryset转换成生成器，可以连续迭代下去
         gene = (x for x in query)

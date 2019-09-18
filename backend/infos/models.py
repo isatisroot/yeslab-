@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from users.models import UserInfo
+from experiments.models import LabAdress
 from utils.constant import TIME_BUKET
 
 
@@ -8,6 +9,7 @@ from utils.constant import TIME_BUKET
 class ReservationInfo(models.Model):
     date = models.DateField(verbose_name='预约日期')
     tb_id = models.SmallIntegerField(verbose_name='预约时段')
+    lab_adress = models.ForeignKey(LabAdress,on_delete=models.SET_NULL,null=True,blank=True)
     user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True,blank=True)
 
     class Meta:
@@ -39,7 +41,7 @@ class InterviewInfo(models.Model):
     date = models.DateField(verbose_name='开放预约日期')
     tb_id = models.SmallIntegerField(choices=PERIOD_CHOICES,verbose_name='开放面试时段')
     num = models.SmallIntegerField(default=6,verbose_name='可预约人数')
-    comment = models.CharField(verbose_name='备注说明(选填)',max_length=50,null=True,blank=True)
+    comment = models.CharField(verbose_name='备注说明(选填)',max_length=50,blank=True,default='')
     user = models.ManyToManyField(UserInfo,null=True,blank=True,verbose_name='预约学生(选填)')
 
     class Meta:
@@ -49,3 +51,4 @@ class InterviewInfo(models.Model):
 
     def __str__(self):
         return '%s: %s' % (self.date,'上午' if self.tb_id ==1 else '下午')
+
