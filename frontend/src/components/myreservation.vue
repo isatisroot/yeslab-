@@ -33,8 +33,9 @@
       label="取消预约"
       width="120">
       <template slot-scope="scope">
+        <!-- @click.native.prevent="deleteRow(scope.$index, tableData)"-->
         <el-button
-          @click.native.prevent="deleteRow(scope.$index, tableData)"
+          v-on:click="sub_rv(scope.row.date,scope.row.tb_id,2)"
           type="text"
           size="small">
           取消
@@ -56,7 +57,7 @@
 				
 				<el-col :span=6 v-for="tb in it.tbs">
 					<el-badge value="已预约" class="item" >
-						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id)" v-if="!tb.time_to_lab">
+						<el-button type="success" v-on:click="sub_rv(it.date,tb.tb_id,1)" v-if="!tb.time_to_lab">
 						{{tb.time_bucket}}
 						</el-button>
             <el-button  v-else>
@@ -124,7 +125,7 @@
 					console.log(error.response.data);
 				})
 			},
-			sub_rv:function(date,tb_id){
+			sub_rv:function(date,tb_id,num){
 				// 取消预约
 				// 弹窗确认
 				this.$confirm('取消预约, 是否继续?', '提示', {
@@ -132,7 +133,7 @@
 				  cancelButtonText: '取消',
 				  type: 'warning'
 				}).then(() => {
-					this.axios.post(this.host+'/cancel_rv/',
+					this.axios.post(this.host+'/cancel_rv/?num='+num,
 					{date:date,tb_id:tb_id,userid:this.userid},
 					{responseType:'json',
 					headers: {'Authorization': 'JWT ' + this.token},

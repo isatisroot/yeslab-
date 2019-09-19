@@ -1,11 +1,11 @@
 <template>
 	<div class="reservation">
-	<el-row>
-		<el-col :span="24" class="title">
-			<span>已预约时间段<b>{{reserved}}</b></span>
-			<span>剩余约时间段<b>{{remanent}}</b></span>
-		</el-col>
-	</el-row>
+<!--	<el-row>-->
+<!--		<el-col :span="24" class="title">-->
+<!--			<span>注意：<b>{{reserved}}</b></span>-->
+
+<!--		</el-col>-->
+<!--	</el-row>-->
 <div v-for="i in info">
 	<el-row>
 		<el-col :span="4"  class="date">
@@ -39,9 +39,7 @@
 				userid:sessionStorage.user_id || localStorage.user_id,
 				username:sessionStorage.username || localStorage.username,
 				token:sessionStorage.token || localStorage.token,
-
 				info:[],
-
 				date:new Date()
 			}
 		},
@@ -108,8 +106,6 @@
 						});
 					})
 
-
-
 				}).catch(() => {
 				  this.$message({
 					type: 'info',
@@ -125,8 +121,6 @@
         var month = date.getMonth()+1
 				return date.getFullYear()+"-"+month+"-"+date.getDate()
 			},
-
-
 			open1() {
 				const h = this.$createElement;
 

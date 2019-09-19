@@ -117,7 +117,7 @@
 					).then(response=>{
 					  console.log(response.data);
 						this.info=this.merge_data(response.data);
-            // this.$router.go(0);
+            this.$router.go(0);
 						// this.open1();
 						this.$message({
 							type: 'success',

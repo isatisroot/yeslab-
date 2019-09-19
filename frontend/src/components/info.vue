@@ -22,10 +22,9 @@
           <span ></span>
 					<i class="el-icon-phone" ></i>预约实验
           <ul v-bind:class="{current:isactive}">
-            <li @click.stop="goreservation(1)"><span>Rock1</span></li>
-            <li @click.stop="goreservation(2)"><span>Rock2</span></li>
-            <li @click.stop="goreservation(3)"><span>Rock3</span></li>
-            <li @click.stop=""><router-link :to="'/info/reservation/?rock=4'"><span>Rock4</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation/?rock=1'"><span>Rock1</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation_2/?rock=2'"><span>Rock2</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation_3/?rock=3'"><span>Rock3</span></router-link></li>
 			    </ul>
 
 				</li>
@@ -68,7 +67,7 @@
     },
 	  methods: {
       goreservation(num) {
-        this.$router.push({path:'/info/reservation',query: {rock: num }})
+        // this.$router.push({path:'/info/reservation',query: {rock: num }})
       },
 	    onSubmit() {
 	      console.log('submit!');
@@ -126,7 +125,7 @@
 	margin-right: 10px;
 }
 .el-aside li ul{
-  margin-top: 10px;
+  margin-top: 25px;
   border-top: 1px solid #dddddd;
 }
 .el-aside li ul li{

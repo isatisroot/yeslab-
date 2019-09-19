@@ -53,6 +53,7 @@ class Reservation(View):
         date = req_data.get('date')
         tb_id = req_data.get('tb_id')
         user_id = req_data.get('userid')
+
         print(date,tb_id,user_id)
         query = ReservationInfo.objects.filter(date=date,tb_id=tb_id,user_id=user_id)
         if query:
@@ -135,7 +136,8 @@ class MyRerservation(View):
                 'date':datetime.datetime.strftime(q.date, '%Y-%m-%d'),
                 'tb_id':q.tb_id,
                 'time_bucket': INTERVIEW_TIME_BUKET[q.tb_id],
-                'count':i.user.count()
+                'count':i.user.count(),
+                'msg':q.comment
             }
             intvList.append(data)
         # print(intvList)
@@ -177,16 +179,21 @@ class MyRerservation(View):
         return JsonResponse([dataList,intvList],safe=False)
 
     def post(self,request):
+        num = request.GET.get('num')
         json_str = request.body.decode()
         req_data = json.loads(json_str)
         date = req_data.get('date')
         user_id = req_data.get('userid')
         tb_id = req_data.get('tb_id')
         print(date,user_id,tb_id)
-        q = ReservationInfo.objects.filter(date=date,user_id=user_id,tb_id=tb_id)[0]
-        q.user_id = None
-        q.save()
+        if num == '1':
+            q = ReservationInfo.objects.filter(date=date,user_id=user_id,tb_id=tb_id)[0]
+            q.user_id = None
+            q.save()
 
-        response = self.get(request,user_id)
+        elif num == '2':
+            q = InterviewInfo.objects.filter(date=date,tb_id=tb_id)[0]
+            u = UserInfo.objects.get(id=user_id)
+            q.user.remove(u)
 
-        return response
+        return self.get(request, user_id)
