@@ -20,6 +20,10 @@ export default new VueRouter({
 	// mode:'history',
 	routes:[
     {
+      path: '/',
+      redirect: '/account',
+    },
+    {
       path:'/account',
       name:'account',
       component:account,

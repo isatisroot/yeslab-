@@ -187,9 +187,43 @@ class Forgot(View):
         user_id = user.id
         return JsonResponse({'username': username, 'user_id': user_id, 'msg': 'successful'})
 
-class UserInfo(View):
-    def get(self,request):
-        pass
 
-    def post(self,request):
-        pass
+class UserInfo(View):
+    def get(self, request, user_id):
+        user = UserInfos.objects.get(id=user_id)
+        name = user.realname
+        email = user.email
+        qq = user.qq
+        phone = user.phone
+        adress = user.adress
+        if name and email and qq and phone and adress:
+            dataList = {
+                'name': name,
+                'email': email,
+                'qq': qq,
+                'phone': phone,
+                'adress': adress,
+                'empty': False
+            }
+            return JsonResponse(dataList)
+        else:
+            return JsonResponse({'empty': True})
+
+    def post(self, request, user_id):
+        json_str = request.body.decode()
+        data = json.loads(json_str)
+        dataList = data.get('form')
+        name = dataList.get('name')
+        phone = dataList.get('phone')
+        qq = dataList.get('qq')
+        adress = dataList.get('adress')
+        if name and qq and phone and adress:
+            user = UserInfos.objects.get(id=user_id)
+            user.realname = name
+            user.phone = phone
+            user.qq = qq
+            user.adress = adress
+            user.save()
+            return JsonResponse({'msg': 'ok'})
+        else:
+            return JsonResponse({'msg': '信息缺失！'}, status=400)
