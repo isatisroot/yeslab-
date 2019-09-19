@@ -96,6 +96,14 @@
       };
     },
     mounted() {
+      var userid = sessionStorage.user_id || localStorage.user_id;
+      var token = sessionStorage.token || localStorage.token;
+      console.log(userid);
+      if (userid && token){
+        this.$router.push({
+          name: 'info'
+        })
+      }
       this.generate_captcha();
       var box = document.getElementsByClassName('login')[0];
       box.style.height = '450px';

@@ -62,7 +62,7 @@
 	  },
     mounted(){
 	    if(!this.token){
-	      this.$router.push({path: 'account'})
+	      this.$router.push({name: 'account'})
       }
     },
 	  methods: {
