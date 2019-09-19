@@ -129,8 +129,8 @@ DATABASES = {
     "default": dbs.default_db()
 }
 
-uri = "redis://192.168.92.149:6379"
 
+uri = os.getenv("REDIS_URI", "redis://192.168.92.149:6379")
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
