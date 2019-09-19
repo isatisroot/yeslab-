@@ -10,11 +10,11 @@
 	  </el-form-item>
 
     <el-form-item label="QQ">
-	  	<el-input v-model="form.phone" placeholder="请填写QQ号码"></el-input>
+	  	<el-input v-model="form.qq" placeholder="请填写QQ号码"></el-input>
 	  </el-form-item>
 
     <el-form-item label="学校/企业名称">
-	  	<el-input v-model="form.phone" placeholder="请填写学校或企业名称"></el-input>
+	  	<el-input v-model="form.adress" placeholder="请填写学校或企业名称"></el-input>
 	  </el-form-item>
 
 	  <el-form-item>

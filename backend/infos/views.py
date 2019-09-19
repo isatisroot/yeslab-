@@ -53,7 +53,9 @@ class Reservation(View):
         date = req_data.get('date')
         tb_id = req_data.get('tb_id')
         user_id = req_data.get('userid')
-
+        u = UserInfo.objects.get(id=user_id)
+        # if not all([u.realname, u.phone, u.qq, u.adress]):
+        #     return JsonResponse({'msg': '请完善个人资料'}, status=403)
         print(date,tb_id,user_id)
         query = ReservationInfo.objects.filter(date=date,tb_id=tb_id,user_id=user_id)
         if query:
@@ -104,14 +106,16 @@ class InterviewView(View):
         date = req_data.get('date')
         tb_id = req_data.get('tb_id')
         user_id = req_data.get('userid')
-
+        u = UserInfo.objects.get(id=user_id)
+        # if not all([u.realname,u.phone,u.qq,u.adress]):
+        #     return JsonResponse({'msg':'请完善个人资料'},status=403)
         i = InterviewInfo.objects.filter(date=date,tb_id=tb_id)[0]
         count = i.user.count()
         num = i.num
         if count >= num:
             return HttpResponseBadRequest(content='人数已达上限'.encode())
 
-        u = UserInfo.objects.get(id=user_id)
+
         i.user.add(u)
         print('write ')
 

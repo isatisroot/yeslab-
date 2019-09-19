@@ -34,6 +34,7 @@ export default new VueRouter({
 			path:"/info",
 			name:"info",
 			component:info,
+      redirect: '/info/userinfo',
 			children:[
 				{ path: 'userinfo', component: userinfo },
 				{ path: 'reservation', component: reservation },

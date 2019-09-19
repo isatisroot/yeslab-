@@ -98,11 +98,11 @@
 							message: '已提交预约!'
 						});
 					}).catch(error=>{
-					  alert('fail');
+
 					  console.log(error);
 						this.$message({
 							type: 'error',
-							message: '预约失败!'
+							message: '预约失败!'+error.response.data.msg
 						});
 					})
 

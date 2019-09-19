@@ -37,24 +37,24 @@ class Regiter(View):
         text = redis.get('uuid:%s' % uuid)
         if not text:
             print('验证码已过期')
-            return HttpResponseBadRequest({'msg': '验证码已过期'})
+            return JsonResponse({'msg': '验证码已过期'},status=400)
         text = text.decode()
         if text.upper() != captcha.upper():
             print(text, captcha)
-            return HttpResponseBadRequest({'msg': '验证码不匹配'})
+            return JsonResponse({'msg': '验证码不匹配'},status=400)
         print('ok')
 
         user_exist = UserInfos.objects.filter(username=username).exists()
         if user_exist:
             print('用户名已存在')
-            return HttpResponseBadRequest({'msg': '用户名已存在'})
+            return JsonResponse({'msg': '用户名已存在'},status=400)
 
         print(username)
         print(password)
         print(email)
         if not all([username,password,email]):
             print('信息不完整')
-            return HttpResponseBadRequest({'msg': '信息不完整'})
+            return JsonResponse({'msg': '信息不完整'},status=400)
 
         user = UserInfos(
             username=username,
@@ -99,20 +99,20 @@ class Login(View):
                 print("密码正确")
             else:
                 print("密码 不正确")
-                return HttpResponseBadRequest({'msg': '密码错误'})
+                return JsonResponse({'msg': '密码错误'},status=400)
         except:
             print("用户不存在")
-            return HttpResponseBadRequest({'msg': '用户不存在'})
+            return JsonResponse({'msg': '用户不存在'},status=403)
 
         redis = get_redis_connection('verify')
         text = redis.get('uuid:%s' % uuid)
         if not text:
             print('不存在')
-            return HttpResponseBadRequest({'msg': '验证码已过期'})
+            return JsonResponse({'msg': '验证码已过期'},status=400)
         text = text.decode()
         if text.upper() != captcha.upper():
             print(text, captcha)
-            return HttpResponseBadRequest({'msg': '验证码不匹配'})
+            return JsonResponse({'msg': '验证码不匹配'},status=400)
 
         print('ok')
 
@@ -165,20 +165,20 @@ class Forgot(View):
             user = UserInfos.objects.get(username=username, email=email)
         except:
             print("用户不存在")
-            return HttpResponseBadRequest({'msg': '用户不存在或邮箱错误！'})
+            return JsonResponse({'msg': '用户不存在或邮箱错误！'},status=400)
         redis = get_redis_connection('email')
         text = redis.get('uuid:%s' % uuid)
         print(uuid)
         if not text:
             print('不存在')
-            return HttpResponseBadRequest({'msg': '验证码已过期'})
+            return JsonResponse({'msg': '验证码已过期'},status=400)
         text = text.decode()
         if text.upper() != captcha.upper():
             print(text, captcha)
-            return HttpResponseBadRequest({'msg': '验证码错误'})
+            return JsonResponse({'msg': '验证码错误'},status=400)
         if user.password == password:
             print("密码不能与旧密码相同")
-            return HttpResponseBadRequest({'msg': '密码不能与旧密码相同'})
+            return JsonResponse({'msg': '密码不能与旧密码相同'},status=400)
 
         # 修改密码
         user.password = password

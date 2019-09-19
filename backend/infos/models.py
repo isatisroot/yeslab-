@@ -7,8 +7,9 @@ from utils.constant import TIME_BUKET
 
 # Create your models here.
 class ReservationInfo(models.Model):
+    PERIOD_CHOICES = tuple(TIME_BUKET.items())
     date = models.DateField(verbose_name='预约日期')
-    tb_id = models.SmallIntegerField(verbose_name='预约时段')
+    tb_id = models.SmallIntegerField(choices=PERIOD_CHOICES,verbose_name='预约时段')
     lab_adress = models.ForeignKey(LabAdress,on_delete=models.SET_NULL,null=True,blank=True)
     user = models.ForeignKey(UserInfo,on_delete=models.SET_NULL,null=True,blank=True)
 
@@ -43,7 +44,8 @@ class InterviewInfo(models.Model):
     num = models.SmallIntegerField(default=6,verbose_name='可预约人数')
     comment = models.CharField(verbose_name='备注说明(选填)',max_length=50,blank=True,default='')
     user = models.ManyToManyField(UserInfo,null=True,blank=True,verbose_name='预约学生(选填)')
-
+    # def user_name(self):
+    #     return self.user
     class Meta:
         db_table = 'interview'
         verbose_name = '面试预约信息表'
