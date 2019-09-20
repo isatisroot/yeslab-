@@ -22,9 +22,9 @@
           <span ></span>
 					<i class="el-icon-phone" ></i>预约实验
           <ul v-bind:class="{current:isactive}">
-            <li @click.stop=""><router-link :to="'/info/reservation/?rock=1'"><span>Rock1</span></router-link></li>
-            <li @click.stop=""><router-link :to="'/info/reservation_2/?rock=2'"><span>Rock2</span></router-link></li>
-            <li @click.stop=""><router-link :to="'/info/reservation_3/?rock=3'"><span>Rock3</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation/?rack=1'"><span>Rack1</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation_2/?rack=2'"><span>Rack2</span></router-link></li>
+            <li @click.stop=""><router-link :to="'/info/reservation_3/?rack=3'"><span>Rack3</span></router-link></li>
 			    </ul>
 
 				</li>

@@ -1,24 +1,29 @@
 <template>
-  <div>
-    <div class="infos" v-if="!empty" :model="infos">
-      <div>
-        <div class="infotitle">姓名</div>：
-        <a>{{ infos.name }}</a>
-      </div>
-      <div>
-        <div class="infotitle">手机</div>：
-        <a>{{ infos.phone }}</a>
-      </div>
-      <div>
-        <div class="infotitle">QQ</div>：
-        <a>{{ infos.qq }}</a>
-      </div>
-      <div>
-        <div class="infotitle">学校/企业</div>：
-        <a>{{ infos.adress }}</a>
-      </div>
+  <div v-if="msg">
+    <table class="tablestyle01" >
+       <tr>
+            <td class="ltd" >姓名</td>
+            <td>{{form.name}}</td>
+        </tr>
+      <tr>
+            <td class="ltd">手机号</td>
+            <td>{{form.phone}}</td>
+        </tr>
+      <tr>
+            <td class="ltd">QQ</td>
+            <td>{{form.qq}}</td>
+        </tr>
+      <tr>
+            <td class="ltd">学校/企业名称</td>
+            <td>{{form.adress}}</td>
+        </tr>
+
+    </table>
+
+        <el-button style="margin-left:500px" type="primary" @click="msg=false">编&nbsp;&nbsp;&nbsp;&nbsp;辑</el-button>
+
     </div>
-    <el-form ref="form" :model="form" label-width="110px" v-else-if="empty">
+    <el-form ref="form" :model="form" label-width="110px" v-else >
 
       <el-form-item label="真实姓名">
         <el-input v-model="form.name" placeholder="请填写真实姓名"></el-input>
@@ -40,7 +45,7 @@
         <el-button type="primary" @click="onSubmit">提&nbsp;&nbsp;&nbsp;&nbsp;交</el-button>
       </el-form-item>
     </el-form>
-  </div>
+<!--  </div>-->
 </template>
 
 <script>
@@ -49,20 +54,13 @@
       return {
         userid:sessionStorage.user_id || localStorage.user_id,
         token:sessionStorage.token || localStorage.token,
-        msg: '',
+        msg: false,
         form: {
           name: '',
           phone: '',
           qq: '',
           adress: ''
         },
-        infos: {
-          name: '',
-          phone: '',
-          qq: '',
-          adress: ''
-        },
-        empty: '',
       };
     },
     mounted() {
@@ -70,9 +68,8 @@
     },
     methods: {
       onSubmit() {
-        this.axios.post(this.host + "/userinfo/" + this.userid, {
-          form: this.form
-        }, {
+        this.axios.post(this.host + "/userinfo/" + this.userid, this.form
+        , {
           responseType: 'json',
           withCredentials: true,
         }).then(response => {
@@ -80,11 +77,7 @@
             type: 'info',
             message: '提交成功!'
           });
-          this.infos.name = this.form.name;
-          this.infos.phone = this.form.phone;
-          this.infos.qq = this.form.qq;
-          this.infos.adress = this.form.adress;
-          this.empty = false;
+          this.$router.go(0)
         })
         .catch(error => {
           console.log(error, "error");
@@ -92,7 +85,7 @@
             type: 'error',
             message: error.response.data.msg + '提交失败!'
           });
-          this.empty = true;
+
         });
       },
       get_info: function() {
@@ -104,20 +97,19 @@
           },
           withCredentials: true, //跨域带上cookies
         }, ).then(response => {
-          this.empty = response.data.empty
-          if (!this.empty) {
-            this.infos.name = response.data.name;
-            this.infos.phone = response.data.phone;
-            this.infos.qq = response.data.qq;
-            this.infos.adress = response.data.adress;
-          }else{
-            this.$message({
+          console.log(response.data)
+            this.form.name = response.data.name;
+            this.form.phone = response.data.phone;
+            this.form.qq = response.data.qq;
+            this.form.adress = response.data.adress;
+            this.msg = true
+
+        }).catch(error => {
+          console.log(error.response.data);
+          this.$message({
               type: 'info',
               message: '请填写个人信息！',
             })
-          }
-        }).catch(error => {
-          console.log(error.response.data);
         })
       },
     }
@@ -129,18 +121,22 @@
     margin: 20px auto;
     width: 600px;
   }
+  .tablestyle01{
+      border:1px solid #8198ef;
+      border-collapse:collapse;
+      margin:50px auto;
+  }
+  .tablestyle01 td{
+      border:1px solid #8198ef;
+      color:#707171;
+      text-align:center;
+      width:600px;
+      height:50px;
+  }
+  .tablestyle01 .ltd{
+      text-align:left;
+      text-indent:20px;
+      width:250px;
+  }
 
-  .infos{
-    margin: 0 100px;
-    color: darkcyan;
-    line-height: 60px;
-  }
-  .infos a{
-    color: black;
-  }
-
-  .infotitle{
-    width: 80px;
-    display: inline-block;
-  }
 </style>

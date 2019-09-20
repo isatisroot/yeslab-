@@ -63,7 +63,7 @@
 		},
 		methods:{
 			get_info:function(date){
-		    let rock = this.$route.query.rock;
+		    let rock = this.$route.query.rack;
 			  var d = this.date2str(date);
 			  this.old_info=[
 			    {"date":d,"tb_id":1,"time_bucket":"00:00-06:00"},

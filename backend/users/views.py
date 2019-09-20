@@ -203,20 +203,20 @@ class UserInfo(View):
                 'qq': qq,
                 'phone': phone,
                 'adress': adress,
-                'empty': False
             }
             return JsonResponse(dataList)
         else:
-            return JsonResponse({'empty': True})
+            return HttpResponseBadRequest()
 
     def post(self, request, user_id):
         json_str = request.body.decode()
         data = json.loads(json_str)
-        dataList = data.get('form')
-        name = dataList.get('name')
-        phone = dataList.get('phone')
-        qq = dataList.get('qq')
-        adress = dataList.get('adress')
+        print(data)
+        name = data.get('name')
+        phone = data.get('phone')
+        qq = data.get('qq')
+        adress = data.get('adress')
+        print(name,phone,qq,adress)
         if name and qq and phone and adress:
             user = UserInfos.objects.get(id=user_id)
             user.realname = name
