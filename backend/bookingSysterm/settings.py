@@ -110,10 +110,10 @@ class DBS():
         }
         self.test_db = {
             "ENGINE": "django.db.backends.mysql",
-            "HOST": os.getenv("MYSQL_HOST", "192.168.92.149"),
+            "HOST": os.getenv("MYSQL_HOST", "192.168.13.128"),
             "PORT": os.getenv("MYSQL_PORT", 3306),
-            "USER": os.getenv("MYSQL_USER", "root"),
-            "PASSWORD": os.getenv("MYSQL_PWD", "mysql"),
+            "USER": os.getenv("MYSQL_USER", "lx1736767412"),
+            "PASSWORD": os.getenv("MYSQL_PWD", "7418529630"),
             "NAME": os.getenv("MYSQL_NAME", "userinfo"),
         }
 
@@ -129,7 +129,7 @@ DATABASES = {
     "default": dbs.default_db()
 }
 
-uri = "redis://192.168.92.149:6379"
+uri = "redis://192.168.13.128:6379"
 
 CACHES = {
     "default": {
