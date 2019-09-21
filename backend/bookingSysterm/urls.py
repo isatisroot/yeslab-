@@ -25,6 +25,7 @@ urlpatterns = [
     url('',include('users.urls')),
     url('',include('infos.urls')),
     url('',include('experiments.urls')),
+    url('',include('courses.urls')),
     path(r'xadmin/', xadmin.site.urls),
 
 # url(r'captcha/(?P<uuid>.*)/$',views.Regiter.as_view()),

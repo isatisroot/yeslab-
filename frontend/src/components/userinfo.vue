@@ -1,24 +1,25 @@
 <template>
-  <div>
-    <div class="infos" v-if="!empty" :model="infos">
-      <div>
-        <div class="infotitle">姓名</div>：
-        <a>{{ infos.name }}</a>
-      </div>
-      <div>
-        <div class="infotitle">手机</div>：
-        <a>{{ infos.phone }}</a>
-      </div>
-      <div>
-        <div class="infotitle">QQ</div>：
-        <a>{{ infos.qq }}</a>
-      </div>
-      <div>
-        <div class="infotitle">学校/企业</div>：
-        <a>{{ infos.adress }}</a>
-      </div>
+    <div v-if="msg">
+      <table class="tablestyle01">
+        <tr>
+          <td class="ltd">姓名</td>
+          <td class="ltd">手机号</td>
+          <td class="ltd">QQ</td>
+          <td class="ltd">学校/企业名称</td>
+        </tr>
+        <tr>
+          <td>{{form.name}}</td>
+          <td>{{form.phone}}</td>
+          <td>{{form.qq}}</td>
+          <td>{{form.adress}}</td>
+        </tr>
+
+      </table>
+
+      <el-button style="margin-left:500px; margin-bottom: 50px;" type="primary" @click="msg=false">编&nbsp;&nbsp;&nbsp;&nbsp;辑</el-button>
+
     </div>
-    <el-form ref="form" :model="form" label-width="110px" v-else-if="empty">
+    <el-form ref="form" :model="form" label-width="110px" v-else>
 
       <el-form-item label="真实姓名">
         <el-input v-model="form.name" placeholder="请填写真实姓名"></el-input>
@@ -38,31 +39,25 @@
 
       <el-form-item>
         <el-button type="primary" @click="onSubmit">提&nbsp;&nbsp;&nbsp;&nbsp;交</el-button>
+        <el-button @click="msg=true">返&nbsp;&nbsp;&nbsp;&nbsp;回</el-button>
       </el-form-item>
     </el-form>
-  </div>
+
 </template>
 
 <script>
   export default {
     data() {
       return {
-        userid:sessionStorage.user_id || localStorage.user_id,
-        token:sessionStorage.token || localStorage.token,
-        msg: '',
+        userid: sessionStorage.user_id || localStorage.user_id,
+        token: sessionStorage.token || localStorage.token,
+        msg: false,
         form: {
           name: '',
           phone: '',
           qq: '',
           adress: ''
         },
-        infos: {
-          name: '',
-          phone: '',
-          qq: '',
-          adress: ''
-        },
-        empty: '',
       };
     },
     mounted() {
@@ -70,30 +65,24 @@
     },
     methods: {
       onSubmit() {
-        this.axios.post(this.host + "/userinfo/" + this.userid, {
-          form: this.form
-        }, {
-          responseType: 'json',
-          withCredentials: true,
-        }).then(response => {
-          this.$message({
-            type: 'info',
-            message: '提交成功!'
+        this.axios.post(this.host + "/userinfo/" + this.userid, this.form, {
+            responseType: 'json',
+            withCredentials: true,
+          }).then(response => {
+            this.$message({
+              type: 'info',
+              message: '提交成功!'
+            });
+            this.$router.go(0)
+          })
+          .catch(error => {
+            console.log(error, "error");
+            this.$message({
+              type: 'error',
+              message: error.response.data.msg + '提交失败!'
+            });
+
           });
-          this.infos.name = this.form.name;
-          this.infos.phone = this.form.phone;
-          this.infos.qq = this.form.qq;
-          this.infos.adress = this.form.adress;
-          this.empty = false;
-        })
-        .catch(error => {
-          console.log(error, "error");
-          this.$message({
-            type: 'error',
-            message: error.response.data.msg + '提交失败!'
-          });
-          this.empty = true;
-        });
       },
       get_info: function() {
         // 获取用户个人信息
@@ -103,21 +92,19 @@
             'Authorization': 'JWT ' + this.token
           },
           withCredentials: true, //跨域带上cookies
-        }, ).then(response => {
-          this.empty = response.data.empty
-          if (!this.empty) {
-            this.infos.name = response.data.name;
-            this.infos.phone = response.data.phone;
-            this.infos.qq = response.data.qq;
-            this.infos.adress = response.data.adress;
-          }else{
-            this.$message({
-              type: 'info',
-              message: '请填写个人信息！',
-            })
-          }
+        }).then(response => {
+          this.form.name = response.data.name;
+          this.form.phone = response.data.phone;
+          this.form.qq = response.data.qq;
+          this.form.adress = response.data.adress;
+          this.msg = true
+
         }).catch(error => {
           console.log(error.response.data);
+          this.$message({
+            type: 'info',
+            message: '请填写个人信息！',
+          })
         })
       },
     }
@@ -130,17 +117,22 @@
     width: 600px;
   }
 
-  .infos{
-    margin: 0 100px;
-    color: darkcyan;
-    line-height: 60px;
-  }
-  .infos a{
-    color: black;
+  .tablestyle01 {
+    margin: 20px auto;
+    background-color: #fbfbfb;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04)
   }
 
-  .infotitle{
-    width: 80px;
-    display: inline-block;
+  .tablestyle01 td {
+    color: #707171;
+    text-align: center;
+    width: 450px;
+    height: 45px;
+  }
+
+  .tablestyle01 .ltd {
+    border-bottom: #eee 1px solid;
+    height: 40px;
+    font-weight: bolder;
   }
 </style>
