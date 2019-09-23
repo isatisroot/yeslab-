@@ -27,3 +27,42 @@ class Course(View):
                 }
                 course_list.append(data)
         return JsonResponse(course_list, safe=False)
+
+
+class Activity(View, ):
+    def get(self, request):
+        course_month = CourseDate.objects.raw(
+            'select * from tb_coursedate where '
+            '(PERIOD_DIFF( date_format( date, "%%Y%%m" ), date_format( now( ) , "%%Y%%m" ) ) =0 '
+            'OR PERIOD_DIFF( date_format( date, "%%Y%%m" ), date_format( now( ) , "%%Y%%m" ) ) =1 '
+            'OR date is null )'
+            'AND opendate <> 1;'
+        )
+        data_list = []
+        for month in course_month:
+            courses = month.courseschedule_set.all()
+            for course in courses:
+                data = {
+                    'teacher': course.teacher.teacher,
+                    'school': course.school,
+                    'type': CourseSchedule.COURSETYPE_CHOICE[course.coursetype-1][1],
+                    'content': '上课内容',
+                    'comment': course.comment,
+                }
+                if course.coursedate.date:
+                    data['date'] = course.coursedate.date
+                else:
+                    data['date'] = course.coursedate.abouttime
+                data_list.append(data)
+        # unsure = CourseSchedule.objects.filter(coursedate__isnull=True)
+        # for course in unsure:
+        #     data = {
+        #         'teacher': course.teacher.teacher,
+        #         'date': course.abouttime,
+        #         'school': course.school,
+        #         'type': CourseSchedule.COURSETYPE_CHOICE[course.coursetype - 1][1],
+        #         'content': '上课内容',
+        #         'comment': course.comment,
+        #     }
+        #     data_list.append(data)
+        return JsonResponse(data_list, safe=False)

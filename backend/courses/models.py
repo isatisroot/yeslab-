@@ -18,7 +18,8 @@ class CourseDate(models.Model):
         (1,'否'),
         (2,'是')
     )
-    date = models.DateField(verbose_name='上课日期')
+    date = models.DateField(verbose_name='上课日期', blank=True, null=True)
+    abouttime = models.CharField(verbose_name='开课大致时间', max_length=10, blank=True)
     opendate = models.SmallIntegerField(choices=OPENDATE_CHOICE,verbose_name='是否为开课日期',default=1)
 
     class Meta:
@@ -27,7 +28,10 @@ class CourseDate(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return datetime.datetime.strftime(self.date,'%Y-%m-%d')
+        if self.date:
+            return datetime.datetime.strftime(self.date,'%Y-%m-%d')
+        else:
+            return self.abouttime
 
 class CourseSchedule(models.Model):
     COURSE_CHOICE = (
@@ -50,14 +54,14 @@ class CourseSchedule(models.Model):
         (7, '其他')
     )
 
-    school = models.CharField(verbose_name='学校名称',max_length=30)
-    course = models.SmallIntegerField(choices=COURSE_CHOICE,verbose_name='课程名称')
-    coursetype = models.SmallIntegerField(choices=COURSETYPE_CHOICE,verbose_name='课程类型')
-    classroom = models.CharField(verbose_name='课室',max_length=10)
-    schooltime = models.CharField(verbose_name='上课时间',max_length=40)
-    comment = models.CharField(verbose_name='备注',max_length=60,blank=True)
-    teacher = models.ForeignKey(TeacherInfo,verbose_name='授课老师',on_delete=models.CASCADE)
-    coursedate = models.ForeignKey(CourseDate,verbose_name='上课日期',on_delete=models.CASCADE)
+    school = models.CharField(verbose_name='学校名称', max_length=30)
+    course = models.SmallIntegerField(choices=COURSE_CHOICE, verbose_name='课程名称')
+    coursetype = models.SmallIntegerField(choices=COURSETYPE_CHOICE, verbose_name='课程类型')
+    classroom = models.CharField(verbose_name='课室', max_length=10)
+    schooltime = models.CharField(verbose_name='上课时间', max_length=40)
+    comment = models.CharField(verbose_name='备注', max_length=60, blank=True)
+    teacher = models.ForeignKey(TeacherInfo,verbose_name='授课老师', on_delete=models.CASCADE)
+    coursedate = models.ForeignKey(CourseDate,verbose_name='上课日期', on_delete=models.CASCADE, blank=True, null=True)
 
     class Meta:
         db_table = 'tb_couserse'

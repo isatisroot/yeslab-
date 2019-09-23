@@ -19,7 +19,14 @@
         </el-tab-pane>
 
         <el-tab-pane label="高校活动表">
-          高校活动表
+          <el-table :data="activity">
+            <el-table-column prop="teacher" label="上课老师"></el-table-column>
+            <el-table-column prop="date" label="开课日期" width="180"></el-table-column>
+            <el-table-column prop="school" label="学校"></el-table-column>
+            <el-table-column prop="type" label="活动类型" width="180"></el-table-column>
+            <el-table-column prop="content" label="课程内容"></el-table-column>
+            <el-table-column prop="comment" label="说明"></el-table-column>
+          </el-table>
         </el-tab-pane>
 
         <el-tab-pane label="讲师授课时间表">
@@ -36,6 +43,7 @@
     data() {
       return {
         courses: [],
+        activity: [],
       };
     },
     methods: {
@@ -49,6 +57,9 @@
         }).then(response => {
           if (tab.$data.index == 1) {
             this.courses = response.data;
+          }else if (tab.$data.index == 2) {
+            console.log(response.data);
+            this.activity = response.data;
           }
         })
       },
